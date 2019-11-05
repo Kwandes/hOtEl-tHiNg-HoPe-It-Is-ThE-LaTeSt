@@ -1,0 +1,4 @@
+The Staff Member's Title is : Director
+The name is : George Gernoimo
+Salary : 65000.0kr.
+Phone No. : 112

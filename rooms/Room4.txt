@@ -1,0 +1,5 @@
+ROOM ID  : 4
+Beds     : 3
+Internet : Internet not available!
+Price    : 500.0
+Floor    : 1
