@@ -137,6 +137,20 @@ public class MainFrame // MF or motherFucker for short
       return userBookings;
    }   
    
+   ////////// Room management //////////
+   
+   public void requestRoomCleaning(int roomID)
+   {
+      for(int i = 0; i < roomList.size(); i++)
+      {
+         if(roomList.get(i).getRoomID() == roomID)
+         {
+            roomList.get(i).setRequiresCleaning(true);
+            file.saveRoomToFile(roomList);
+         }
+      }
+   }
+   
    ////////// User management //////////
    // contact interface : populate array
    public void setUserList()
