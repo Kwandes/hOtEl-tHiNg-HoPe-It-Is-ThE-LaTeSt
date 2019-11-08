@@ -9,11 +9,28 @@ public class FileManagement
       System.out.println(logMessage);
    }
    
+   ////////// Save X From File //////////
+   public void saveUserToFile(ArrayList<User> array)
+   {
+      
+   }
+   
+   public void saveRoomToFile(ArrayList<Room> array)
+   {
+   
+   }
+   
+   public void saveBookingToFile(ArrayList<Booking> array)
+   {
+   
+   }
+   
    public void saveToFile(ArrayList<Object> array)
    {
       
    }
    
+   ////////// Load X From File //////////
    public ArrayList<User> loadUsersFromFile(String filePath)
    {
       return new ArrayList<User>();
