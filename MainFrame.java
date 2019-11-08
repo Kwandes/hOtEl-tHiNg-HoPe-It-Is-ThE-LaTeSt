@@ -33,10 +33,56 @@ public class MainFrame // MF or motherFucker for short
          //file.appendToFIle(new Log(e, Log.Type.ERROR));
          createLog(e, Log.Type.ERROR);
       }
-      
       createLog("Init ok", Log.Type.INFO);
    }
    
+   ////////// User management //////////
+   // contact interface : populate array
+   public void setUserList()
+   {
+      userList = file.loadUsersFromFile("userList path");
+   }
+   
+   public ArrayList<User> getUserList()
+   {
+      return userList;
+   }
+   
+   ////////// Room management //////////
+   // contact interface : populate array
+   public void setRoomList()
+   {
+      roomList = file.loadRoomsFromFile("userList path");
+   }
+   
+   public ArrayList<Room> getRoomList()
+   {
+      return roomList;
+   }
+   
+   ////////// Booking management //////////
+   // contact interface : populate array
+   public void steBookingList()
+   {
+      bookingList = file.loadBookingsFromFile("userList path");
+   }
+   
+   public ArrayList<Booking> getBookingList()
+   {
+      return bookingList;
+   }
+   
+   ////////// Overall Management //////////
+   public void saveTofile(ArrayList<Object> array)
+   {
+      file.saveToFile(array);
+   }
+   
+   ////////// Config //////////
+   // read Config
+   // assign config values to stuff
+   
+   ////////// Logging //////////
    public void createLog(String message, Log.Type logType)
    {
       file.appendToFile((new Log(message, logType)).toString());
