@@ -18,7 +18,7 @@ public class Log
    }
    
    private String lineStart = ">>>";
-   private Date date;
+   private String date;
    
    private String logMessage;
    
@@ -37,8 +37,8 @@ public class Log
    
    public String toString()
    {
-      date = new Date();
-      SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+      SimpleDateFormat formatter = new SimpleDateFormat("E yyyy/MM/dd HH:mm:SSS");
+      date = formatter.format(new Date());
       
       return lineStart + date + ": " + logMessage;
       //return "fuck you";
