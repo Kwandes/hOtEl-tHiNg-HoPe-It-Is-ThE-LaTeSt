@@ -11,6 +11,11 @@ public class MainFrame // MF or motherFucker for short
    private ArrayList<Config> configData;
    private FileManagement file;
 
+   public MainFrame()
+   {
+   
+   } 
+   
    public void init()
    {
       try
@@ -21,6 +26,7 @@ public class MainFrame // MF or motherFucker for short
          ////////// Get config and init arrays //////////
          // get config with filepaths etc
          // populate userList
+         userList = new ArrayList<User>();
          //bookingList = new ArrayList<Booking>();
          // populate roomList
          // populate bookingList;
@@ -36,6 +42,7 @@ public class MainFrame // MF or motherFucker for short
          createLog(e, Log.Type.ERROR);
       }
       createLog("Init ok", Log.Type.INFO);
+      
    }
    
    ////////// UI API //////////
@@ -47,6 +54,7 @@ public class MainFrame // MF or motherFucker for short
       {
          if(userList.get(i).getPhoneNumber().equals(phoneNumber) && userList.get(i).getPassword().equals(password))
          {
+            createLog("User " + userList.get(i).getUserID() + " has logged in", Log.Type.INFO);
             return userList.get(i);
          }
       }
@@ -206,5 +214,11 @@ public class MainFrame // MF or motherFucker for short
    public void createLog(Exception e, Log.Type logType)
    {
       file.appendToFile(new Log(e, logType).toString());
+   }
+   
+   ////////// testing purpose code //////////
+   public void addUser(User user)
+   {
+      userList.add(user);
    }
 }

@@ -4,6 +4,7 @@ public class User
 {
    private String phoneNumber;
    private String password;
+   private String userID = "EA42";
    
    public String getPhoneNumber()
    {
@@ -12,6 +13,16 @@ public class User
    public String getPassword()
    {
       return "yeet";
+   }
+   
+   public String getUserID()
+   {
+      return this.userID;
+   }
+   
+   public String toString()
+   {
+      return userID + " | " + phoneNumber;
    }
 
 }
