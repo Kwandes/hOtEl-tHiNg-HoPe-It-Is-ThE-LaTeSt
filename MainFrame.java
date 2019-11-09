@@ -13,7 +13,8 @@ public class MainFrame // MF or motherFucker for short
 
    public MainFrame()
    {
-   
+      file = new FileManagement();
+      createLog("New MainFrame has been created", Log.Type.INFO);
    } 
    
    public void init()
@@ -21,8 +22,7 @@ public class MainFrame // MF or motherFucker for short
       try
       {  
          ////////// Init Log System and Log it //////////
-         file = new FileManagement();
-         createLog("Test message", Log.Type.INFO);
+         createLog("MainFrame Init started", Log.Type.INFO);
          ////////// Get config and init arrays //////////
          // get config with filepaths etc
          // populate userList
@@ -30,18 +30,18 @@ public class MainFrame // MF or motherFucker for short
          //bookingList = new ArrayList<Booking>();
          // populate roomList
          // populate bookingList;
-         ArrayList<String> array = new ArrayList<String>();
+         //ArrayList<String> array = new ArrayList<String>();
          //array.get(1);   // Example invalid array for exception logging debug
          createLog("ArrayList setup complete", Log.Type.INFO);
          ////////// Run CLI/UI/whatever we called it //////////
          // create UI object and run UI
+         createLog("MainFrame init has completed successfully", Log.Type.INFO);
       }
       catch (Exception e)
       {
-         //file.appendToFIle(new Log(e, Log.Type.ERROR));
          createLog(e, Log.Type.ERROR);
+         createLog("MainFrame init has NOT completed successfully", Log.Type.WARNING);
       }
-      createLog("Init ok", Log.Type.INFO);
       
    }
    
@@ -49,99 +49,131 @@ public class MainFrame // MF or motherFucker for short
    
    // Returns a valid user for a given login. If none is found, returns null;
    public User validateLogin(String phoneNumber, String password)
-   {
-      for(int i = 0; i < userList.size(); i++)
+   {  
+      try
       {
-         if(userList.get(i).getPhoneNumber().equals(phoneNumber) && userList.get(i).getPassword().equals(password))
+         for(int i = 0; i < userList.size(); i++)
          {
-            createLog("User " + userList.get(i).getUserID() + " has logged in", Log.Type.INFO);
-            return userList.get(i);
+            if(userList.get(i).getPhoneNumber().equals(phoneNumber) && userList.get(i).getPassword().equals(password))
+            {
+               createLog("User " + userList.get(i).getUserID() + " has logged in", Log.Type.INFO);
+               return userList.get(i);
+            }
          }
       }
+      catch (Exception e) {  createLog(e, Log.Type.ERROR); } 
       return null;   // If the login info is invalid return null
    }
    
    public ArrayList<Room> getAvailableRooms()
    {
       ArrayList<Room> availableRooms = new ArrayList<Room>();
-      
-      for(int i = 0; i < roomList.size(); i++)
+      try
       {
-         if(!roomList.get(i).isBooked())
+         for(int i = 0; i < roomList.size(); i++)
          {
-            availableRooms.add(roomList.get(i));
-         }
-      }      
-      return availableRooms;
+            if(!roomList.get(i).isBooked())
+            {
+               availableRooms.add(roomList.get(i));
+            }
+         } 
+         createLog("No available rooms found", Log.Type.WARNING);
+      }
+      catch (Exception e) {  createLog(e, Log.Type.ERROR); }     
+      return availableRooms;  // If no rooms found it will be null
    }
    
    public ArrayList<Room> getAvailableRooms(int startDate, int endDate)
    {
       ArrayList<Room> availableRooms = new ArrayList<Room>();
-      
-      for(int i = 0; i < roomList.size(); i++)
-      {
-         if(!roomList.get(i).isBooked())
+      try
          {
-            for(int j = 0; i < roomList.size(); j++)
+         for(int i = 0; i < roomList.size(); i++)
+         {
+            if(!roomList.get(i).isBooked())
             {
-               if(!bookingList.get(j).isBookable(roomList.get(i).getRoomID(), startDate, endDate))
+               for(int j = 0; i < roomList.size(); j++)
                {
-                  availableRooms.add(roomList.get(i));
+                  if(!bookingList.get(j).isBookable(roomList.get(i).getRoomID(), startDate, endDate))
+                  {
+                     availableRooms.add(roomList.get(i));
+                  }
                }
             }
          }
       }
-      return availableRooms;  // If no rooms found, return null;
+      catch (Exception e) {  createLog(e, Log.Type.ERROR); }
+      
+      createLog("No available rooms found", Log.Type.WARNING);
+      return availableRooms;  // If no rooms found it will be null
    }
    
    public Booking bookRoom(int roomID, int userID, int startDate, int endDate)
    {
-      bookingList.add(new Booking(roomID, userID, startDate, endDate));
-      //file.saveBookingToFile(bookingList);
-      file.saveBookingToFile(bookingList);
-      return bookingList.get(bookingList.size()-1);
+      try
+      {
+         bookingList.add(new Booking(roomID, userID, startDate, endDate));
+         //file.saveBookingToFile(bookingList);
+         file.saveBookingToFile(bookingList);
+         createLog("New Booking created, id: " + bookingList.get(bookingList.size()-1) + " by " + userID, Log.Type.INFO);
+         return bookingList.get(bookingList.size()-1);
+      }
+      catch (Exception e) {  createLog(e, Log.Type.ERROR); }
+      return null;
    }
    
    public Booking modifyBooking(int bookingID, int startDate, int endDate)
    {
-      for(int i = 0; i < bookingList.size(); i++)
+      try
       {
-         if(bookingList.get(i).getBookingID() == bookingID)
+         for(int i = 0; i < bookingList.size(); i++)
          {
-            bookingList.get(i).setStartDate(startDate);
-            bookingList.get(i).setEndDate(endDate);
-            return bookingList.get(i);
+            if(bookingList.get(i).getBookingID() == bookingID)
+            {
+               bookingList.get(i).setStartDate(startDate);
+               bookingList.get(i).setEndDate(endDate);
+               createLog("Booking " + bookingID + "has been modified", Log.Type.INFO);
+               return bookingList.get(i);
+            }
          }
       }
+      catch (Exception e) {  createLog(e, Log.Type.ERROR); }
       return null;
    }   
    
    public boolean removeBooking(int bookingID)
    {
-      for(int i = 0; i < bookingList.size(); i++)
+      try
       {
-         if(bookingList.get(i).getBookingID() == bookingID)
+         for(int i = 0; i < bookingList.size(); i++)
          {
-            archivedBookingList.add(bookingList.get(i));
-            bookingList.remove(i);
-            return true;
+            if(bookingList.get(i).getBookingID() == bookingID)
+            {
+               archivedBookingList.add(bookingList.get(i));
+               bookingList.remove(i);
+               createLog("Booking " + bookingID + "has been removed", Log.Type.INFO);
+               return true;
+            }
          }
       }
+      catch (Exception e) {  createLog(e, Log.Type.ERROR); }
       return false;
    }
    
    public ArrayList<Booking> getUsersBookings(int userID)
    {
       ArrayList<Booking> userBookings = new ArrayList<Booking>();
-      
-      for(int i = 0; i < bookingList.size(); i++)
+      try
       {
-         if(bookingList.get(i).getUserID() == userID)
+         for(int i = 0; i < bookingList.size(); i++)
          {
-            userBookings.add(bookingList.get(i));
+            if(bookingList.get(i).getUserID() == userID)
+            {
+               userBookings.add(bookingList.get(i));
+            }
          }
-      }      
+      }
+      catch (Exception e) {  createLog(e, Log.Type.ERROR); }   
       return userBookings;
    }   
    
@@ -149,14 +181,19 @@ public class MainFrame // MF or motherFucker for short
    
    public void requestRoomCleaning(int roomID)
    {
-      for(int i = 0; i < roomList.size(); i++)
+      try
       {
-         if(roomList.get(i).getRoomID() == roomID)
+         for(int i = 0; i < roomList.size(); i++)
          {
-            roomList.get(i).setRequiresCleaning(true);
-            file.saveRoomToFile(roomList);
+            if(roomList.get(i).getRoomID() == roomID)
+            {
+               roomList.get(i).setRequiresCleaning(true);
+               file.saveRoomToFile(roomList);
+               createLog("Room " + roomID + "has changed status to : requires cleaning", Log.Type.INFO);
+            }
          }
       }
+      catch (Exception e) {  createLog(e, Log.Type.ERROR); } 
    }
    
    ////////// User management //////////
