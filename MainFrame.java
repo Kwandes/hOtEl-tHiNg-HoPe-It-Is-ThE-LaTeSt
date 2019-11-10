@@ -10,13 +10,23 @@ public class MainFrame // MF or motherFucker for short
    private ArrayList<Room> roomList;
    private ArrayList<Booking> bookingList;
    private ArrayList<Booking> archivedBookingList;
-   private ArrayList<Config> configData;
    private FileManagement file;
+   private Config cfg;
+   private boolean printLogsToConsole;
 
-   public MainFrame()
-   {
+   public MainFrame(boolean printLogs)
+   {  
+      this.printLogsToConsole = printLogs;
+   
       file = new FileManagement();
       createLog("New MainFrame has been created", Log.Type.INFO);
+      
+      
+      createLog("Loading config", Log.Type.INFO);
+      cfg = new Config();
+      
+      if(cfg.isLoaded()) createLog("Config loaded", Log.Type.INFO);
+      else createLog("Config failed to load", Log.Type.ERROR);
    } 
    
    public void init()
@@ -248,11 +258,11 @@ public class MainFrame // MF or motherFucker for short
    ////////// Logging //////////
    public void createLog(String message, Log.Type logType)
    {
-      file.appendToFile((new Log(message, logType)).toString());
+      file.appendToFile((new Log(message, logType)).toString(), this.printLogsToConsole);
    }
    public void createLog(Exception e, Log.Type logType)
    {
-      file.appendToFile(new Log(e, logType).toString());
+      file.appendToFile(new Log(e, logType).toString(), this.printLogsToConsole);
    }
    
    ////////// testing purpose code //////////

@@ -4,9 +4,9 @@ import java.util.ArrayList;
 
 public class FileManagement
 {
-   public void appendToFile(String logMessage)
+   public void appendToFile(String logMessage, boolean printToConsole)
    {
-      System.out.println(logMessage);
+      if(printToConsole) System.out.println(logMessage);
    }
    
    ////////// Save X From File //////////

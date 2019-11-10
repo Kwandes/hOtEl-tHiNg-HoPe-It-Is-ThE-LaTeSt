@@ -32,7 +32,7 @@ public class Log
    
    public Log(String message, Type logType)
    {
-      this.logMessage = message;
+      this.logMessage = logType + ": " + message;
    }
    
    public String toString()
