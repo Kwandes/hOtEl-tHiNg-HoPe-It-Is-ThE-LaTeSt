@@ -1,0 +1,19 @@
+Assumptions (not discussed, to be discussed during the next meeting)
+-Room price is static
+-How information is sent to the FileManagement(for now, separate functions for each type)
+-passwords are hashed and never stored in OG format
+
+Facts:
+
+Conventions:
+camelCase vars, CamelCase classes
+if()
+{
+	doSomething();
+}
+
+Interface = classManagement
+user interaction = UI
+file names: /files./users.txt
+config: ./config.cfg
+
