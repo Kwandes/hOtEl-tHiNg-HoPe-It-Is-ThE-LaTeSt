@@ -11,16 +11,19 @@ public class Room {
    private static int basePrice;
    private static int pricePerBed;
    private static double floorMultiplier;
+   private boolean[] calendar; 
    
    
-   //Blank constructor
+   //Semi-blank constructor
    public Room ()
    {
+      this.calendar = new boolean[365];
    }
 
    //Cool Constructor
    public Room (int roomID, int beds)
    {
+      this.calendar = new boolean[365];
       this.floor = roomID/100;
       this.roomID = roomID;
       this.beds = beds;
@@ -50,6 +53,7 @@ public class Room {
          + "\nPrice :\t\t\t\t" + price;  
    }
    
+   //raw string data for file processing
    public String fileFortmatString()
    {
       return roomID +" "+ floor +" "+ beds +" "+ price;
@@ -57,9 +61,20 @@ public class Room {
    
 //________________________________________________________GETTERS_AND_SETTERS__________________________________________________
 
-   //private static int basePrice;
-   //private static int pricePerBed;
-   //private static double floorMultiplier;
+//________________________________________________________CALENDAR________________________________________ 
+   
+   public boolean[] getCalendar()
+   {
+      return calendar;
+   }
+   
+   public void setCalendar(boolean[] calendar)
+   {
+      this.calendar = calendar;
+   }
+
+
+//________________________________________________________BASE_PRICE______________________________________
    
    public int getBasePrice()
    {
@@ -68,8 +83,11 @@ public class Room {
 
    public static void setBasePrice(int basePrice2)
    {
-      basePrice = basePrice2;//this wont work without this.
+      basePrice = basePrice2;
    }
+
+//________________________________________________________PRICE_PER_BED___________________________________
+
 
    public int getPricePerBed()
    {
@@ -78,8 +96,11 @@ public class Room {
    
    public static void setPricePerBed(int pricePerBed2)
    {
-      pricePerBed = pricePerBed2;//this wont work without this.
+      pricePerBed = pricePerBed2;
    }
+
+
+//________________________________________________________FLOOR_MULTIPLIER________________________________
    
    public double getFloorMultiplier()
    {
@@ -89,7 +110,7 @@ public class Room {
 
    public static void setFloorMultiplier(double floorMultiplier2)
    {
-      floorMultiplier = floorMultiplier2;//this wont work without this.
+      floorMultiplier = floorMultiplier2;
    }
 
 //________________________________________________________PRICE___________________________________________

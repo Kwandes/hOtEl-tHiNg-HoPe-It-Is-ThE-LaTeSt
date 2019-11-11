@@ -21,6 +21,7 @@ public class Test {
    
    System.out.println(test1 + "\n\n" + test2);
    System.out.println(test1.fileFortmatString());
+   System.out.println(test1.getCalendar());
    
    
    
