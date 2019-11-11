@@ -5,11 +5,13 @@ public class Room {
    private int floor;
    private int roomID;
    private int price;
-   private boolean hasInternet;
    private boolean isBooked;
    private boolean requiresCleaning;
    
-   private String temp;
+   private static int basePrice;
+   private static int pricePerBed;
+   private static double floorMultiplier;
+   
    
    //Blank constructor
    public Room ()
@@ -17,33 +19,23 @@ public class Room {
    }
 
    //Cool Constructor
-   public Room (int roomID, int beds, boolean hasInternet)
+   public Room (int roomID, int beds)
    {
       this.floor = roomID/100;
       this.roomID = roomID;
       this.beds = beds;
-      this.hasInternet = hasInternet;
-      isBooked = true;
-      this.price = countPrice(floor, beds, hasInternet);
-      requiresCleaning = false;
+      this.isBooked = false;
+      this.price = countPrice(floor, beds);
+      this.requiresCleaning = false;
    }
 
    //Method to determine room price. Based on a base room price + beds + floor hight + internet (higher floors have better view)
-   private static int countPrice(int floor, int beds, boolean hasInternet)
-   {
-      double totalPrice = 0;
-      int pricePerBed = 300;
-      double floorMultiplier = 1.05;
-      int basePrice = 100;
-      
+   public static int countPrice(int floor, int beds)
+   {  
+      double totalPrice = 0;    
       totalPrice += basePrice;
       totalPrice += beds * pricePerBed;
       totalPrice =  totalPrice * (Math.pow(floorMultiplier, floor));
-      
-      if (hasInternet)
-      {
-         totalPrice += 100;
-      }
       
       return (int)totalPrice;
    } 
@@ -54,14 +46,51 @@ public class Room {
       return "Floor :\t\t\t\t" + floor 
          + "\nRoom ID :\t\t\t" + roomID
          + "\nNumber of Beds :\t" + beds
-         + "\nInternet :\t\t\t" + hasInternet
          + "\nRequiresCleaning? " + requiresCleaning
          + "\nPrice :\t\t\t\t" + price;  
    }
    
+   public String fileFortmatString()
+   {
+      return roomID +" "+ floor +" "+ beds +" "+ price;
+   }
    
 //________________________________________________________GETTERS_AND_SETTERS__________________________________________________
 
+   //private static int basePrice;
+   //private static int pricePerBed;
+   //private static double floorMultiplier;
+   
+   public int getBasePrice()
+   {
+      return basePrice;
+   }   
+
+   public static void setBasePrice(int basePrice2)
+   {
+      basePrice = basePrice2;//this wont work without this.
+   }
+
+   public int getPricePerBed()
+   {
+      return pricePerBed;
+   }
+   
+   public static void setPricePerBed(int pricePerBed2)
+   {
+      pricePerBed = pricePerBed2;//this wont work without this.
+   }
+   
+   public double getFloorMultiplier()
+   {
+      return floorMultiplier;
+   }
+
+
+   public static void setFloorMultiplier(double floorMultiplier2)
+   {
+      floorMultiplier = floorMultiplier2;//this wont work without this.
+   }
 
 //________________________________________________________PRICE___________________________________________
    
@@ -86,22 +115,9 @@ public class Room {
    public void setBeds(int beds)
    {
       this.beds = beds;
+      this.price = countPrice(floor, beds);
    }
-
-
-//________________________________________________________HAS_INTERNET____________________________________  
-
-   public boolean getHasInternet()
-   {
-      return hasInternet;
-   }
-   //have to have countPrice here to make sure that if we add or remove internet its price is counted
-   public void setHasInternet(boolean hasInternet) 
-   {
-      this.hasInternet = hasInternet;
-      this.price = countPrice(floor, beds, hasInternet);
-   }
-
+   
 
 //________________________________________________________ROOM_ID_________________________________________
 
@@ -126,7 +142,7 @@ public class Room {
    public void setFloor(int floor)
    {
       this.floor = floor;
-      this.price = countPrice(floor, beds, hasInternet);
+      this.price = countPrice(floor, beds);
    }
 
 
