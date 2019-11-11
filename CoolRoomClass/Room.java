@@ -9,21 +9,23 @@ public class Room {
    private boolean isBooked;
    private boolean requiresCleaning;
    
+   private String temp;
+   
    //Blank constructor
    public Room ()
    {
    }
 
    //Cool Constructor
-   public Room (int floor, int roomID, int beds, boolean hasInternet)
+   public Room (int roomID, int beds, boolean hasInternet)
    {
-      this.floor = floor;
+      this.floor = roomID/100;
       this.roomID = roomID;
       this.beds = beds;
       this.hasInternet = hasInternet;
       isBooked = true;
       this.price = countPrice(floor, beds, hasInternet);
-      requiresCleaning=false;
+      requiresCleaning = false;
    }
 
    //Method to determine room price. Based on a base room price + beds + floor hight + internet (higher floors have better view)
