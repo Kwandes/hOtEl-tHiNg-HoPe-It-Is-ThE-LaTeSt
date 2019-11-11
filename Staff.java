@@ -1,84 +1,74 @@
-public class Staff {
-
-      // Attributes
+public class staff extends user implements userManagement
+{
+   private int hours;           //pr week
+   private double salary;       //pr hour
+   private int vacation;        //pr year
+   
+      //Constructer 
       
-   private String title;
-   private String firstName;
-   private String lastName;
-   private double salary;
-   private String teleNum;
-   
-      // Constructors
-   
-   public Staff () {
-   
-   }
- 
-   public Staff ( String title ) {
-      this.title = title;
-   }
-
-   
-   public Staff ( String title, String firstName, String lastName ) {
-      this.title = title;
-      this.firstName = firstName;
-      this.lastName = lastName;
-   }
-   
-   public Staff ( String title, String firstName, String lastName, double salary, String teleNum ) {
-      this.title = title;
-      this.firstName = firstName;
-      this.lastName = lastName;
+   public staff (String firstName, String lastName, String cpr, String type, 
+                 String[] address, int phoneNr, String password, int hours, 
+                 double salary, int vacation) 
+   {
+      super(firstName, lastName, cpr, type, address, phoneNr, password);
+      this.hours = hours;
       this.salary = salary;
-      this.teleNum = teleNum;
+      this.vacation = vacation; 
    }
    
-      // Methods
+      //Methods
       
       
-      // Getters
-      
-   public String getTitle () {
-      return title;
+   
+      //Setters
+   
+   public void setType (String type) 
+   {
+      this.type = type; 
    }
-   public String getFirstName () {
-      return firstName;
+   
+   public void setHours (int hours) 
+   {
+      this.hours = hours;
    }
-   public String getLastName () {
-      return lastName;
-   } 
-   public double getSalary () {
+   
+   public void setSalary (double salary) 
+   {
+      this.salary = salary;
+   }
+   
+   public void setVacation (int vacation) 
+   {
+      this.vacation = vacation;
+   }
+   
+      //Getters
+   
+   public int getHours () 
+   {
+      return hours;
+   }
+   
+   public double getSalary () 
+   {
       return salary;
    }
-   public String getTeleNum () {
-      return teleNum;
-   }
-      
-      // Setters
-      
-   public void setTitle ( String title ) {
-      this.title = title;
-   }
-   public void setFirstName ( String firstName ) {
-      this.firstName = firstName;
-   }
-   public void setLastName ( String lastName ) {
-      this.lastName = lastName;
-   }
-   public void setSalary ( double salary ) {
-      this.salary = salary;
-   }
-   public void setTeleNum ( String teleNum ) {
-      this.teleNum = teleNum;
-   }
-      
-      // toString Method                                                                              
    
-   public String toString () {
-      return  "The Staff Member's Title is : " + title +
-               "\nThe name is : " + firstName + " " + lastName +
-               "\nSalary : " + salary + "kr." + 
-               "\nPhone No. : " + teleNum;
-   } 
+   public double getSalaryMonth () 
+   {
+      return ((hours * salary) * 4);
+   }
    
+   public int getVacation () 
+   {
+      return vacation;
+   }
+      
+   public String staffRepportToString () 
+   {
+      return "\tHours a week          : " + hours + 
+             "\n\tSalary pr hour      : " + salary +
+             "\n\tVacation days pr/y  : " + vacation + 
+             "\n\tMonthly salary      : " + getSalaryMonth();
+   }
 }
