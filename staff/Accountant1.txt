@@ -1,4 +1,0 @@
-The Staff Member's Title is : Accountant
-The name is : Jack Daniel
-Salary : 39123.0kr.
-Phone No. : 45456890

@@ -1,7 +1,7 @@
 import java.io.*;
 import java.util.*;
 
-public class user 
+public class User 
 {   
       //Attributes 
    
@@ -19,9 +19,9 @@ public class user
    
       //Constructor 
    
-   public user () {}
+   public User () {}
    
-   public user (String firstName, String lastName, String cpr, String type, String[] address, int phoneNr, String password) 
+   public User (String firstName, String lastName, String cpr, String type, String[] address, int phoneNr, String password) 
    {
       this.firstName = firstName;
       this.lastName = lastName;

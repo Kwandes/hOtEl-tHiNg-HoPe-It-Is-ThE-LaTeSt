@@ -1,5 +1,0 @@
-ROOM ID  : 2
-Beds     : 2
-Internet : Internet available!
-Price    : 2311.0
-Floor    : 2

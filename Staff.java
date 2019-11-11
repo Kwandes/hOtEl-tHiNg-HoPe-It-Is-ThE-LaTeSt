@@ -1,4 +1,4 @@
-public class staff extends user implements userManagement
+public class Staff extends User implements UserManagement
 {
    private int hours;           //pr week
    private double salary;       //pr hour
@@ -6,7 +6,7 @@ public class staff extends user implements userManagement
    
       //Constructer 
       
-   public staff (String firstName, String lastName, String cpr, String type, 
+   public Staff (String firstName, String lastName, String cpr, String type, 
                  String[] address, int phoneNr, String password, int hours, 
                  double salary, int vacation) 
    {
@@ -70,5 +70,16 @@ public class staff extends user implements userManagement
              "\n\tSalary pr hour      : " + salary +
              "\n\tVacation days pr/y  : " + vacation + 
              "\n\tMonthly salary      : " + getSalaryMonth();
+   }
+   
+   @Override
+   public void getUserInformation(String ID)
+   {
+   
+   }
+   @Override
+   public void printStaffReport(User user)
+   {
+   
    }
 }

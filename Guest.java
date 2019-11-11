@@ -1,11 +1,11 @@
-public class guest extends user implements userManagement 
+public class Guest extends User implements UserManagement 
 {
    private int guestDays;
    private double moneySpent;
    
       //Constructor
       
-   public guest (String firstName, String lastName, String cpr, String type, 
+   public Guest (String firstName, String lastName, String cpr, String type, 
                  String[] adress, int phoneNr, String password, int guestDays, double moneySpent)
    {
       super(firstName, lastName, cpr, "GU", adress, phoneNr, password);
@@ -55,5 +55,16 @@ public class guest extends user implements userManagement
    {
       return "Total days at hotel         : " + guestDays +
              "\nTotal amount of money spent : " + moneySpent;
+   }
+   
+   @Override
+   public void getUserInformation(String ID)
+   {
+   
+   }
+   @Override
+   public void printStaffReport(User user)
+   {
+   
    }
 }

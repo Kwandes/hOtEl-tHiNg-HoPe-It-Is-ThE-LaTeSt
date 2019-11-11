@@ -1,4 +1,4 @@
-public class Test {
+public class RoomTest {
 
 
    public static void main(String[] args)
