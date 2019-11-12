@@ -11,28 +11,28 @@ public class Room {
    private static int basePrice;
    private static int pricePerBed;
    private static double floorMultiplier;
-   private boolean[] calendar; 
+   private int[] calendar; 
    
    
    //Semi-blank constructor
    public Room ()
    {
-      this.calendar = new boolean[365];
+      this.calendar = new int[365];
    }
 
    //Cool Constructor
    public Room (int roomID, int beds)
    {
-      this.calendar = new boolean[365];
+      this.calendar = new int[365];
       this.floor = roomID/100;
       this.roomID = roomID;
       this.beds = beds;
       this.isBooked = false;
-      this.price = countPrice(floor, beds);
+      this.price = countPrice(floor, beds); 
       this.requiresCleaning = false;
    }
-
-   //Method to determine room price. Based on a base room price + beds + floor hight + internet (higher floors have better view)
+   
+   //Method to determine room price. Based on a base room price + beds + floor hight (higher floors have better view)
    public static int countPrice(int floor, int beds)
    {  
       double totalPrice = 0;    
@@ -54,7 +54,7 @@ public class Room {
    }
    
    //raw string data for file processing
-   public String fileFortmatString()
+   public String fileFormatString()
    {
       return roomID +" "+ floor +" "+ beds +" "+ price;
    }
@@ -63,12 +63,12 @@ public class Room {
 
 //________________________________________________________CALENDAR________________________________________ 
    
-   public boolean[] getCalendar()
+   public int[] getCalendar()
    {
       return calendar;
    }
    
-   public void setCalendar(boolean[] calendar)
+   public void setCalendar(int[] calendar)
    {
       this.calendar = calendar;
    }

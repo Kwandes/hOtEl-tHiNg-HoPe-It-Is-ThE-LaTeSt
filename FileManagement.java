@@ -56,25 +56,23 @@ public class FileManagement
       
       while ( in.hasNext () ) 
       {  
-         /*
-            room.setRoomID (in.nextInt());
-            room.setFloor ( in.nextInt());
-            room.setBeds ( in.nextInt());
-            room.setPrice ( in.nextInt()); 
-         */
+         room.setRoomID (in.nextInt());
+         room.setFloor ( in.nextInt());
+         room.setBeds ( in.nextInt());
+         room.setPrice ( in.nextInt()); 
          int[] calendar = new int[365];
          for ( int i = 0; i < calendar.length; i ++ )
          {
             calendar[i] = calIn.nextInt();
          }
          room.setCalendar ( calendar );
-         room.setID (in.nextInt());
          array.add ( room );
       }
             
       return array;
    }
-      // Guests
+      // Guests - WAITING TO BE IMPLEMENTED
+   /*
    public ArrayList<Guest> loadGuests () 
                            throws FileNotFoundException 
    {
@@ -92,7 +90,7 @@ public class FileManagement
       return array;
    }
    
-      // Staff
+      // Staff - WAITING TO BE IMPLEMENTED
    public ArrayList<Staff> loadStaff () 
                            throws FileNotFoundException 
    {
@@ -109,7 +107,7 @@ public class FileManagement
             
       return array;
    }
-   
+   /*
       // Bookings - Archived & Active
    public ArrayList<Booking> loadBookings ( boolean isArchived ) 
                            throws FileNotFoundException 

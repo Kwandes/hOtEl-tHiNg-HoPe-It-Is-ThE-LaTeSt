@@ -1,10 +1,12 @@
+   // PLACEHOLDER CRISTI
+
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.io.*;
 
 public class TestMain {
 
-   private static final String FILEPATH = "C:/Users/crist/OneDrive/Documents/KEA Hotel Project/Logs";
+   private static final String FILEPATH = "C:/Users/crist/OneDrive/Documents/GitKraken/hOtEl-tHiNg-HoPe-It-Is-ThE-LaTeSt/Logs";
    private static int[] monthList = { 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
    private static String[] monthName = { "jan", "feb", "mar", "apr", "may", "jun", "jul", "aug", "sep", "oct", "nov", "dec" };
    
@@ -13,15 +15,31 @@ public class TestMain {
       
       FileManagement fm = new FileManagement ( FILEPATH );
       
-      System.out.println ( dateNumber ( 3, 15 ) ); // 74
-      System.out.println ( dateFormat ( 74 ) );
-      System.out.println ( dateFormat ( dateNumber ( 3 , 15) ) );
-      System.out.println ( dateFormat ( dateNumber ( 12, 29 )  ) );
-      System.out.println ( dateFormat ( dateNumber ( 8, 22 ) ) );
+         // Room Testing 
+         
+      // Setting required values for room class to work.
+      Room.setBasePrice(100);
+      Room.setPricePerBed(200);
+      Room.setFloorMultiplier(1.05);
+         
+      // Loading all rooms.
+      ArrayList<Room> rArray = fm.loadRooms();
       
-      System.out.println ( "" );      
+      // Creating room.
+      Room r = new Room ( 306, 1 );
+      int[] rCalendar = new int[365];
+      rCalendar [0] = 10;
+      rCalendar [1] = 2;
+      rCalendar [2] = 2;
+      r.setCalendar ( rCalendar );
       
+      rArray.add ( r );
+      
+      // Saving rooms.
+      fm.saveRooms ( rArray );
    }
+   
+      // Calendar Methods & Date Formatting
    
    public static int dateNumber ( int month, int day )
    {
