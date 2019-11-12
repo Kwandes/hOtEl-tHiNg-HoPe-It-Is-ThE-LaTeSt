@@ -27,7 +27,7 @@ public class Log
       StringWriter sw = new StringWriter();
       PrintWriter pw = new PrintWriter(sw);
       e.printStackTrace(pw);
-      this.logMessage = sw.toString();
+      this.logMessage = logType + ": " +  sw.toString();
    }
    
    public Log(String message, Type logType)
