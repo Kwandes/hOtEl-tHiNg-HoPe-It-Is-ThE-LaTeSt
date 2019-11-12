@@ -48,9 +48,11 @@ public class FileManagement
                            throws FileNotFoundException 
    {
       File file = new File ( filePath + "/rooms.txt" );
+      File calFile = new File ( filePath + "/calendar.txt" );
       Room room = new Room();
       ArrayList<Room> array = new ArrayList<Room>();
       Scanner in = new Scanner ( file );
+      Scanner calIn = new Scanner ( calFile );
       
       while ( in.hasNext () ) 
       {  
@@ -60,7 +62,13 @@ public class FileManagement
             room.setBeds ( in.nextInt());
             room.setPrice ( in.nextInt()); 
          */
-         //room.setID (in.next());
+         int[] calendar = new int[365];
+         for ( int i = 0; i < calendar.length; i ++ )
+         {
+            calendar[i] = calIn.nextInt();
+         }
+         room.setCalendar ( calendar );
+         room.setID (in.nextInt());
          array.add ( room );
       }
             
@@ -71,14 +79,14 @@ public class FileManagement
                            throws FileNotFoundException 
    {
       File file = new File ( filePath + "/guests.txt" );
-      //Guest guest = new Guest();
+      Guest guest = new Guest();
       ArrayList<Guest> array = new ArrayList<Guest>();
       Scanner in = new Scanner ( file );
       
       while ( in.hasNext () ) 
       {
-         //guest.setID (in.next());
-         //array.add ( guest );
+         guest.setID (in.next());
+         array.add ( guest );
       }
             
       return array;
@@ -89,14 +97,14 @@ public class FileManagement
                            throws FileNotFoundException 
    {
       File file = new File ( filePath + "/staff.txt" );
-      //Staff staff = new Staff();
+      Staff staff = new Staff();
       ArrayList<Staff> array = new ArrayList<Staff>();
       Scanner in = new Scanner ( file );
       
       while ( in.hasNext () ) 
       {
-         //staff.setID (in.next());
-         //array.add ( staff );
+         staff.setID (in.next());
+         array.add ( staff );
       }
             
       return array;
@@ -121,7 +129,7 @@ public class FileManagement
       
       while ( in.hasNext () ) 
       {
-         booking.setBookingID ( in.next() );
+         booking.setBookingID ( in.nextInt() );
          booking.setUserID ( in.next() );
          booking.setRoomID ( in.nextInt() );
          booking.setIsExtended ( in.nextBoolean() );
@@ -149,12 +157,21 @@ public class FileManagement
                      throws FileNotFoundException 
    {
       File file = new File ( filePath + "/rooms.txt" );
+      File calFile = new File ( filePath + "/calendar.txt");
       PrintStream out = new PrintStream ( file );
+      PrintStream calOut = new PrintStream ( calFile );
       for ( int i = 0; i < array.size(); i ++ ) 
       {
          Room room = array.get(i);
-         //out.println ( room.fileFormatString() );
+         out.println ( room.fileFormatString() );
+         int[] calendar = room.getCalendar();
+         for ( int j = 0; j < calendar.length; j++ ) {
+            calOut.print ( calendar[j] + " " ); 
+         }
+         calOut.println();
       }
+      calOut.flush();
+      calOut.close();
       out.flush();
       out.close();   
    }

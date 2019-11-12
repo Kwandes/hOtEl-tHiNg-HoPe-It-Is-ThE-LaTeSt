@@ -2,7 +2,7 @@ public class Booking {
    
       // Attributes
    
-   private String bookingID;
+   private int bookingID;
    private int roomID;
    private String userID;
    private boolean isExtended;
@@ -18,13 +18,13 @@ public class Booking {
    
    }
    
-   public Booking ( int roomID, String userID, int startDate, int endDate, int roomPrice, boolean hasInternet ) 
+   public Booking ( int bookingID, int roomID, String userID, int startDate, int endDate, int roomPrice, boolean hasInternet ) 
    {
       this.roomID = roomID;
       this.userID = userID;
       this.startDate = startDate;
       this.endDate = endDate;
-      this.bookingID = "B-" + userID + "-" + roomID;
+      this.bookingID = bookingID;
       this.isExtended = false;
       this.hasInternet = hasInternet;
       this.price = ( endDate - startDate ) * roomPrice;
@@ -42,7 +42,7 @@ public class Booking {
       
       // Getters
    
-   public String getBookingID ()
+   public int getBookingID ()
    {
       return bookingID;
    }
@@ -77,7 +77,7 @@ public class Booking {
    
       // Setters   
       
-   public void setBookingID ( String bookingID ) 
+   public void setBookingID ( int bookingID ) 
    {
       this.bookingID = bookingID;
    }
