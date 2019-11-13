@@ -37,9 +37,20 @@ public class Booking {
    
       // Methods
    
-   //public boolean isBookable ( int startDate, int endDate ); - this should be done before the creation of the booking ?
-   // perhaps add smth called isExtendable ?
+   // Verifies if the booking can be extended by the given amount of days.
+   public boolean isExtendable ( int days, int[] calendar )  
+   {
+      for ( int i = endDate; i <  endDate + days; i ++ )
+      {
+         if ( calendar[i] != 0 )
+         {
+            return false;
+         }
+      }
+      return true;
       
+   }
+         
       // Getters
    
    public int getBookingID ()

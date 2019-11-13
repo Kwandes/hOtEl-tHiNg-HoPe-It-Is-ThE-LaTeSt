@@ -107,7 +107,7 @@ public class FileManagement
             
       return array;
    }
-   /*
+   */
       // Bookings - Archived & Active
    public ArrayList<Booking> loadBookings ( boolean isArchived ) 
                            throws FileNotFoundException 
