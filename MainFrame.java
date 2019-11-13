@@ -1,6 +1,8 @@
 // The controller than controls interaction and information transfer inbetween classes
 
 import java.util.ArrayList;
+import java.util.Properties;
+import java.io.FileInputStream;
 
 // If you wish to print out logs, add sysout in FileManagement
 
@@ -11,30 +13,30 @@ public class MainFrame // MF or motherFucker for short
    private ArrayList<Booking> bookingList;
    private ArrayList<Booking> archivedBookingList;
    private FileManagement file;
-   private Config cfg;
    private boolean printLogsToConsole;
+   private Properties config;
 
    public MainFrame(boolean printLogs)
    {  
       this.printLogsToConsole = printLogs;
    
-      file = new FileManagement();
+      file = new FileManagement("Logs");
       createLog("New MainFrame has been created", Log.Type.INFO);
-      
-      
-      createLog("Loading config", Log.Type.INFO);
-      cfg = new Config();
-      
-      if(cfg.isLoaded()) createLog("Config loaded", Log.Type.INFO);
-      else createLog("Config failed to load", Log.Type.ERROR);
    } 
    
    public void init()
    {
       try
       {  
-         ////////// Init Log System and Log it //////////
+         ////////// Init MainFrame //////////
          createLog("MainFrame Init started", Log.Type.INFO);
+         
+         ////////// Load Config //////////
+         createLog("Loading config", Log.Type.INFO);
+         config = new Properties();
+         config.load(new FileInputStream("config.properties"));
+         createLog("Config loaded", Log.Type.INFO);
+         
          ////////// Get config and init arrays //////////
          // get config with filepaths etc
          // populate userList
@@ -258,11 +260,11 @@ public class MainFrame // MF or motherFucker for short
    ////////// Logging //////////
    public void createLog(String message, Log.Type logType)
    {
-//       file.appendToFile((new Log(message, logType)).toString(), this.printLogsToConsole);
+      file.appendToFile((new Log(message, logType)).toString(), this.printLogsToConsole);
    }
    public void createLog(Exception e, Log.Type logType)
    {
-//       file.appendToFile(new Log(e, logType).toString(), this.printLogsToConsole);
+      file.appendToFile(new Log(e, logType).toString(), this.printLogsToConsole);
    }
    
    ////////// testing purpose code //////////

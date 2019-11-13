@@ -1,2 +1,67 @@
 log2
 log2
+>>>Tue 2019/11/12 17:11:442: INFO: New MainFrame has been created
+>>>Tue 2019/11/12 17:11:450: INFO: Loading config
+>>>Tue 2019/11/12 17:11:458: INFO: Config loaded
+>>>Tue 2019/11/12 17:11:464: INFO: MainFrame Init started
+>>>Tue 2019/11/12 17:11:469: INFO: ArrayList setup complete
+>>>Tue 2019/11/12 17:11:474: INFO: MainFrame init has completed successfully
+>>>Tue 2019/11/12 17:11:420: INFO: New MainFrame has been created
+>>>Tue 2019/11/12 17:11:427: INFO: Loading config
+>>>Tue 2019/11/12 17:11:431: java.io.FileNotFoundException: config.prosperties (The system cannot find the file specified)
+	at java.io.FileInputStream.open0(Native Method)
+	at java.io.FileInputStream.open(FileInputStream.java:195)
+	at java.io.FileInputStream.<init>(FileInputStream.java:138)
+	at java.io.FileInputStream.<init>(FileInputStream.java:93)
+	at MainFrame.init(MainFrame.java:34)
+	at Main.main(Main.java:11)
+
+>>>Tue 2019/11/12 17:11:443: WARNING: MainFrame init has NOT completed successfully
+>>>Tue 2019/11/12 17:16:638: INFO: New MainFrame has been created
+>>>Tue 2019/11/12 17:16:640: INFO: MainFrame Init started
+>>>Tue 2019/11/12 17:16:642: INFO: Loading config
+>>>Tue 2019/11/12 17:16:644: INFO: Config loaded
+>>>Tue 2019/11/12 17:16:646: INFO: ArrayList setup complete
+>>>Tue 2019/11/12 17:16:648: INFO: MainFrame init has completed successfully
+>>>Tue 2019/11/12 17:17:742: INFO: New MainFrame has been created
+>>>Tue 2019/11/12 17:17:751: INFO: MainFrame Init started
+>>>Tue 2019/11/12 17:17:756: INFO: Loading config
+>>>Tue 2019/11/12 17:17:761: INFO: Config loaded
+>>>Tue 2019/11/12 17:17:769: INFO: ArrayList setup complete
+>>>Tue 2019/11/12 17:17:773: INFO: MainFrame init has completed successfully
+>>>Tue 2019/11/12 17:17:819: INFO: New MainFrame has been created
+>>>Tue 2019/11/12 17:17:824: INFO: MainFrame Init started
+>>>Tue 2019/11/12 17:17:826: INFO: Loading config
+>>>Tue 2019/11/12 17:17:830: ERRORjava.io.FileNotFoundException: config.poperties (The system cannot find the file specified)
+	at java.io.FileInputStream.open0(Native Method)
+	at java.io.FileInputStream.open(FileInputStream.java:195)
+	at java.io.FileInputStream.<init>(FileInputStream.java:138)
+	at java.io.FileInputStream.<init>(FileInputStream.java:93)
+	at MainFrame.init(MainFrame.java:37)
+	at Main.main(Main.java:11)
+
+>>>Tue 2019/11/12 17:17:834: WARNING: MainFrame init has NOT completed successfully
+>>>Tue 2019/11/12 17:17:759: INFO: New MainFrame has been created
+>>>Tue 2019/11/12 17:17:763: INFO: MainFrame Init started
+>>>Tue 2019/11/12 17:17:764: INFO: Loading config
+>>>Tue 2019/11/12 17:17:772: ERROR: java.io.FileNotFoundException: config.poperties (The system cannot find the file specified)
+	at java.io.FileInputStream.open0(Native Method)
+	at java.io.FileInputStream.open(FileInputStream.java:195)
+	at java.io.FileInputStream.<init>(FileInputStream.java:138)
+	at java.io.FileInputStream.<init>(FileInputStream.java:93)
+	at MainFrame.init(MainFrame.java:37)
+	at Main.main(Main.java:11)
+
+>>>Tue 2019/11/12 17:17:775: WARNING: MainFrame init has NOT completed successfully
+>>>Tue 2019/11/12 17:17:177: INFO: New MainFrame has been created
+>>>Tue 2019/11/12 17:17:185: INFO: MainFrame Init started
+>>>Tue 2019/11/12 17:17:192: INFO: Loading config
+>>>Tue 2019/11/12 17:17:199: INFO: Config loaded
+>>>Tue 2019/11/12 17:17:206: INFO: ArrayList setup complete
+>>>Tue 2019/11/12 17:17:209: INFO: MainFrame init has completed successfully
+>>>Tue 2019/11/12 17:18:557: INFO: New MainFrame has been created
+>>>Tue 2019/11/12 17:18:565: INFO: MainFrame Init started
+>>>Tue 2019/11/12 17:18:568: INFO: Loading config
+>>>Tue 2019/11/12 17:18:578: INFO: Config loaded
+>>>Tue 2019/11/12 17:18:581: INFO: ArrayList setup complete
+>>>Tue 2019/11/12 17:18:588: INFO: MainFrame init has completed successfully

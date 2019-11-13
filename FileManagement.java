@@ -24,14 +24,35 @@ public class FileManagement
       // Methods
       
    public void appendToFile ( String log ) // Appends a given line to the bottom of the logs.txt file
-               throws IOException
    {
       File file = new File ( filePath + "/logs.txt" );
-      FileWriter fw = new FileWriter ( file, true );
-      PrintWriter out = new PrintWriter ( fw );
-      out.println ( log );
-      out.flush();
-      out.close();
+      try
+      {
+         file.createNewFile();
+         FileWriter fw = new FileWriter ( file, true );
+         PrintWriter out = new PrintWriter ( fw );
+         out.println ( log );
+         out.flush();
+         out.close();
+      }
+      catch (Exception e){ System.out.println(e);};
+   }
+   
+   public void appendToFile ( String log, boolean outputToConsole ) // Appends a given line to the bottom of the logs.txt file
+   {
+      File file = new File ( filePath + "/logs.txt" );
+      try
+      {
+         file.createNewFile();
+         FileWriter fw = new FileWriter ( file, true );
+         PrintWriter out = new PrintWriter ( fw );
+         out.println ( log );
+         out.flush();
+         out.close();
+      }
+      catch (Exception e){ System.out.println(e);};
+      
+      if(outputToConsole) System.out.println(log);
    }
       
       // Loaders
