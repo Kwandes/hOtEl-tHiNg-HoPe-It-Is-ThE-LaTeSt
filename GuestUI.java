@@ -15,7 +15,7 @@ public class GuestUI extends CLI
    public GuestUI(User user, String title)
    {
       this.title = title;
-      this.screenNumber = 2;
+      this.screenNumber = 0;
       this.loggedUser = user.getLastName();
       this.userAccessLevel = 0; // Cannot be more than 0 for security reasons
       this.seperator = print(size); 
@@ -113,19 +113,19 @@ public class GuestUI extends CLI
       print();
       password = pass1;
       
-      Guest Teo = new Guest (firstName, lastName, cpr, "GU", address, phoneNr, password, IDCounter, 0.0);
+      Guest Teo = new Guest (firstName, lastName, cpr, address, phoneNr, password, IDCounter);
       System.out.println("\n" + Teo.toString());
    }
    
    public static int check (String question, int min, int max)
    {
       int input = 0;
-      boolean TEST = false;
+      boolean isValid = false;
       int a = 0;
       
-      while ( !TEST ) 
+      while ( !isValid ) 
       {
-         TEST = true;
+         isValid = true;
          if ( a == 1 )
          {
             System.out.print("Please write a number " + min + " - " + max + " : ");
@@ -136,18 +136,18 @@ public class GuestUI extends CLI
             input = in.nextInt();
             if ( input > min && input < max ) 
             {
-               TEST = true; 
+               isValid = true; 
             } 
             else 
             {
                errorMessage(5);
-               TEST = false;
+               isValid = false;
             }
          } 
          else 
          {
             errorMessage(5);
-            TEST = false;
+            isValid = false;
             in.next();
          }
       }
@@ -157,12 +157,12 @@ public class GuestUI extends CLI
    public static String checkAddress () 
    {
       String input = "";
-      boolean TEST = false;
+      boolean isValid = false;
       int a = 0; 
       
-      while ( !TEST ) 
+      while ( !isValid ) 
       {
-         TEST = true;
+         isValid = true;
          if ( a == 1 ) 
          {
             System.out.print("\tPlease write street name : ");
@@ -188,7 +188,7 @@ public class GuestUI extends CLI
          }
          if ( input.length() < 3 ) 
          {
-            TEST = false;
+            isValid = false;
          }
       }
       
@@ -203,40 +203,47 @@ public class GuestUI extends CLI
       return inputWith;
    }
    
-   public static String checkName (int a) //a is for printing the correct comment.
+   public static String checkName (int commentNumber) 
    {
       String input = "";
-      boolean TEST = false;
+      boolean isValid = false;
       
-      while ( !TEST ) 
+      while ( !isValid ) 
       {
-         TEST = true;
-         if ( a == 1 ) 
-         {
-            System.out.print("\tPlease write your first name : ");
-         }
-         else if ( a == 2 ) 
-         {
-            System.out.print("\tPlease write your last name : ");
-         } 
-         else if ( a == 10 ) 
-         {
-            System.out.print("\tPlease write City name : ");
-         }
-         else if ( a == 7 )
-         {
-            System.out.print("\tPlease write street name : ");
-         }
-         else if ( a == 8 ) { a--; }
-         else if ( a == 0 ) { a++; }
-         else if ( a == 9 ) { a++; }
-         else { a--; }
+         isValid = true;
          
-         if ( a == 9 || a == 10 )     //if this is removed there will be an issue with 
-         {                            //getting the city name.
-            input = in2.nextLine();   //i thik java created a bug that could not be fixed.
-         }                            //so i made a completely new scanner to be sure it 
-         else                         //hadnt obtained a value already.
+         switch ( commentNumber )
+         {
+            case 0:
+               commentNumber++;
+               break;
+            case 1:
+               System.out.print("\tPlease write your first name : ");
+               break;
+            case 2:
+               System.out.print("\tPlease write your last name : ");
+               break;
+            case 3:
+               commentNumber--;
+               break;
+            case 7:  
+               System.out.print("\tPlease write street name : ");
+               break;
+            case 8:
+               commentNumber--;
+               break;
+            case 9:
+               commentNumber++;
+               break;
+            case 10:
+               System.out.print("\tPlease write City name : ");
+         }
+         
+         if ( commentNumber == 9 || commentNumber == 10 )  //if this is removed there will be an issue with 
+         {                                                 //getting the city name.
+            input = in2.nextLine();                        //i thik java created a bug that could not be fixed.
+         }                                                 //so i made a completely new scanner to be sure it 
+         else                                              //hadnt obtained a value already.
          {
             input = in.nextLine();
          }
@@ -270,15 +277,16 @@ public class GuestUI extends CLI
          }
          if ( input.length() < 3 ) 
          {
-            TEST = false;
+            isValid = false;
          }
       }
       
       String inputWith = "";
       inputWith += Character.toUpperCase(input.charAt(0));  //This is just to make the first letter
-      for ( int i = 1; i < input.length(); i++ )            //in the names UpperCase and the rest are
-      {                                                     //LowerCase at the same time.
-         inputWith += inputWith += Character.toLowerCase(input.charAt(i));
+                                                            //in the names UpperCase and the rest are
+      for ( int i = 1; i < input.length(); i++ )            //LowerCase at the same time.
+      {
+         inputWith += Character.toLowerCase(input.charAt(i));
       }
       
       return inputWith;
@@ -287,12 +295,12 @@ public class GuestUI extends CLI
    public static String checkCpr () 
    {
       String input = "";
-      boolean TEST = false;
+      boolean isValid = false;
       int a = 0;
       
-      while ( !TEST ) 
+      while ( !isValid ) 
       {
-         TEST = true;
+         isValid = true;
          if ( a == 1 ) 
          {
             System.out.print("\tPlease write your CPR (ex. 2208972041) : ");
@@ -332,36 +340,36 @@ public class GuestUI extends CLI
          
          if ( input.length() < 3 ) 
          {
-            TEST = false;
+            isValid = false;
          }
       }
       return input;
    }
    
-   public static void printText (String a, int b) 
+   public static void printText (String text, int numberOfSpaces) 
    {
-      int out = (b - a.length()) / 2;
+      int out = (numberOfSpaces - text.length()) / 2;
       for(int i = 0; i < out; i++ ) {
          System.out.print(" ");
       }
-      System.out.println(a);
+      System.out.println(text);
    }
    
-   public static String addText (String a, int b) 
+   public static String addText (String text, int numberOfSpaces) 
    {
       String line = "";
-      int out = (b - a.length()) / 2;
+      int out = (numberOfSpaces - text.length()) / 2;
       for(int i = 0; i < out; i++ ) {
          line += " ";
       }
-      line += a;
+      line += text;
       return line;
    }
    
-   public static String print (int b) 
+   public static String print (int numberOfChar) 
    {
       String fullString = "";
-      for(int i = 0; i < b; i++ ) {
+      for(int i = 0; i < numberOfChar; i++ ) {
          fullString += "-";
       }
       return fullString;
@@ -372,10 +380,10 @@ public class GuestUI extends CLI
       System.out.println(print(size));
    }
    
-   public static void errorMessage (int a) 
+   public static void errorMessage (int message) 
    {
       print();
-      System.out.println(error[a]);
+      System.out.println(error[message]);
       print();
    }
    
