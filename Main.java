@@ -9,5 +9,9 @@ public class Main
    
       MainFrame hotel = new MainFrame(true);
       hotel.init();
+      if(hotel.getInitStatus())
+      {
+         hotel.yeet();
+      }
    }
 }

@@ -15,7 +15,7 @@ public class GuestUI extends CLI
    public GuestUI(User user, String title)
    {
       this.title = title;
-      this.screenNumber = 0;
+      this.screenNumber = 2;
       this.loggedUser = user.getLastName();
       this.userAccessLevel = 0; // Cannot be more than 0 for security reasons
       this.seperator = print(size); 
@@ -113,7 +113,7 @@ public class GuestUI extends CLI
       print();
       password = pass1;
       
-      Guest Teo = new Guest (firstName, lastName, cpr, address, phoneNr, password, IDCounter);
+      Guest Teo = new Guest (firstName, lastName, cpr, "GU", address, phoneNr, password, IDCounter, 0.0);
       System.out.println("\n" + Teo.toString());
    }
    

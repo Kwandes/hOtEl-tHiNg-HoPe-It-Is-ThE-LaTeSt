@@ -15,6 +15,7 @@ public class MainFrame // MF or motherFucker for short
    private FileManagement file;
    private boolean printLogsToConsole;
    private Properties config;
+   private boolean isInitiatedProperly;
 
    public MainFrame(boolean printLogs)
    {  
@@ -50,11 +51,13 @@ public class MainFrame // MF or motherFucker for short
          ////////// Run CLI/UI/whatever we called it //////////
          // create UI object and run UI
          createLog("MainFrame init has completed successfully", Log.Type.INFO);
+         this.isInitiatedProperly = true;
       }
       catch (Exception e)
       {
          createLog(e, Log.Type.ERROR);
          createLog("MainFrame init has NOT completed successfully", Log.Type.WARNING);
+         this.isInitiatedProperly = false;
       }
       
    }
@@ -271,5 +274,23 @@ public class MainFrame // MF or motherFucker for short
    public void addUser(User user)
    {
       userList.add(user);
+   }
+   
+   public void yeet()
+   {  
+      String[] arr = new String[3];
+      arr[0] = "Yeet";
+      arr[1] = "Yote";
+      arr[2] = "yoten";
+      GuestUI ui = new GuestUI(new Guest("Faisal", "Boolyan", "1234561234", "GU", arr, 12345678, "passwd", 0, 0.0), "YEET");
+      createLog("Ui created", Log.Type.INFO);
+      ui.display();
+   }
+   
+   ////////// Getters and Setter //////////
+   
+   public boolean getInitStatus()
+   {
+      return this.isInitiatedProperly;
    }
 }
