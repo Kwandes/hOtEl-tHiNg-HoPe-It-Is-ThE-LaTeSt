@@ -24,7 +24,7 @@ public class StaffUI extends CLI
       this.title = title;
       this.screenNumber = 0;
       this.loggedUser = user.getLastName();
-      //this.userAccessLevel = user.getAccessLevel();
+      this.userAccessLevel = user.getAccessLevel();
       this.seperator = "----------------------------------------------------------------------------------------------------"; // 100 dashes
       this.running = true;
       this.mf = mfRef;
@@ -74,19 +74,19 @@ public class StaffUI extends CLI
       }  
    }
    
-   public  void main(String[] args)
+   public void main(String[] args)
    {
       createGuest();
       //createStaff();
    }
    
-   public  void createBooking()
+   public void createBooking()
    {
       
    }
    
    
-   public  void createStaff()
+   public void createStaff()
    {
       //this.screenNumber = 2;
       //Staff firstName, lastName, cpr, type, address, phoneNumber, password,int hours, double salary, int vacation)
@@ -103,7 +103,7 @@ public class StaffUI extends CLI
       Staff created = new Staff( firstName, lastName, cpr, "ST", address, phoneNumber, password, hours, salary, vacation);
    }
 
-   public  void createGuest() 
+   public void createGuest() 
    {
       //this.screenNumber = 1;
       creationTemplate("Guest");
@@ -111,7 +111,7 @@ public class StaffUI extends CLI
       System.out.println(); 
    }
 
-   public  void creationTemplate(String type)
+   public void creationTemplate(String type)
    {
       Scanner input = new Scanner(System.in);
       Scanner inputAddress = new Scanner(System.in);
@@ -161,7 +161,7 @@ public class StaffUI extends CLI
       System.out.println();  
    }
    
-   public  double doubleCheck()
+   public double doubleCheck()
    {
       Scanner input = new Scanner(System.in);
       double number;
@@ -177,7 +177,7 @@ public class StaffUI extends CLI
    }
    
    
-   public  int intCheck()
+   public int intCheck()
    {
       Scanner input = new Scanner(System.in);
       int number;
@@ -192,7 +192,7 @@ public class StaffUI extends CLI
       return number;
    }
    
-   public  String phoneNumberCheck(Scanner console)
+   public String phoneNumberCheck(Scanner console)
    {
       String number;
       number = console.next();
@@ -247,7 +247,7 @@ public class StaffUI extends CLI
    }
    
    //Check to see that CPR is valid
-   public  String cprCheck(Scanner console)
+   public String cprCheck(Scanner console)
    {  
       String cpr = "";
       cpr = console.next();
@@ -317,7 +317,7 @@ public class StaffUI extends CLI
       return cpr;
    }
    
-   public  String nameFixer(String name)
+   public String nameFixer(String name)
    {
       String namePart;
       String fixedName = "";
@@ -351,7 +351,7 @@ public class StaffUI extends CLI
       return fixedName;  
    }
    
-   public  void printLines()
+   public void printLines()
    {
       for (int i = 0; i < headerLength; i++)
       {
@@ -360,12 +360,12 @@ public class StaffUI extends CLI
       System.out.println();
    }
      
-   public  void print(String text)
+   public void print(String text)
    {
       System.out.println("\t>" + text);
    }
   
-   public  void header(String text)
+   public void header(String text)
    {
       print("HOTEL PLAZA");
       print("@ " + "CURRENT STAFF");

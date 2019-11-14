@@ -10,10 +10,35 @@ public class Staff extends User implements UserManagement
                  String[] address, String phoneNr, String password, int hours, 
                  double salary, int vacation) 
    {
-      super(firstName, lastName, cpr, type, address, phoneNr, password);
+      this.firstName = firstName;
+      this.lastName = lastName;
+      this.cpr = cpr;
+      this.type = type;
+      this.address = address;
+      this.phoneNr = phoneNr;
+      this.password = password;
       this.hours = hours;
       this.salary = salary;
       this.vacation = vacation; 
+      this.accessLevel = calculateAccessLevel();
+   }
+   
+   // Explicit access level, for that sweet security override and backdoor
+   public Staff (String firstName, String lastName, String cpr, String type, 
+                 String[] address, String phoneNr, String password, int hours, 
+                 double salary, int vacation, int accessLevel) 
+   {
+      this.firstName = firstName;
+      this.lastName = lastName;
+      this.cpr = cpr;
+      this.type = type;
+      this.address = address;
+      this.phoneNr = phoneNr;
+      this.password = password;
+      this.hours = hours;
+      this.salary = salary;
+      this.vacation = vacation;
+      this.accessLevel = accessLevel;
    }
    
       //Methods
@@ -21,6 +46,14 @@ public class Staff extends User implements UserManagement
       
    
       //Setters
+   public int calculateAccessLevel()
+   {
+      for(int i = 0; i < TYPE.length; i++)
+      {
+         if( TYPE[i].equals(this.type)) return i;
+      }
+      return 0;
+   }
    
    public void setType (String type) 
    {
@@ -62,6 +95,11 @@ public class Staff extends User implements UserManagement
    public int getVacation () 
    {
       return vacation;
+   }
+   
+   public int getAccessLevel()
+   {
+      return accessLevel;
    }
       
    public String staffRepportToString () 

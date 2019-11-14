@@ -284,7 +284,8 @@ public class MainFrame // MF or motherFucker for short
       userList.add(user);
    }
    
-   public void yeet()
+   ////////// User Interface //////////
+   public void openCLI()
    {  
       LoginUI loginUI = new LoginUI("Hotel PlAzA", this);
       loginUI.display();
@@ -318,7 +319,7 @@ public class MainFrame // MF or motherFucker for short
          }
          else
          {
-            createLog("No UI openable", Log.Type.WARNING);
+            createLog("No UI openable OR User has exited the application", Log.Type.WARNING);
          }
       }
       catch (Exception e)

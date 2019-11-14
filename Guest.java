@@ -17,6 +17,7 @@ public class Guest extends User implements UserManagement
       this.password = password;
       this.guestDays = guestDays;
       this.moneySpent = moneySpent;
+      this.accessLevel = 0;
    }  
    
       //AddToMethods
@@ -53,6 +54,11 @@ public class Guest extends User implements UserManagement
    public double getMoneySpent () 
    {
       return moneySpent;
+   }
+   
+   public int getAccessLevel ()
+   {
+      return this.accessLevel;
    }
    
       //Methods
