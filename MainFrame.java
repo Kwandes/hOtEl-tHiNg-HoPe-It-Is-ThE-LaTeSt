@@ -282,7 +282,7 @@ public class MainFrame // MF or motherFucker for short
       arr[0] = "Yeet";
       arr[1] = "Yote";
       arr[2] = "yoten";
-      GuestUI ui = new GuestUI(new Guest("Faisal", "Boolyan", "1234561234", "GU", arr, 12345678, "passwd", 0, 0.0), "YEET");
+      GuestUI ui = new GuestUI(new Guest("Faisal", "Boolyan", "1234561234", "GU", arr, "12345678", "passwd", 0, 0.0), "YEET");
       createLog("Ui created", Log.Type.INFO);
       ui.display();
    }

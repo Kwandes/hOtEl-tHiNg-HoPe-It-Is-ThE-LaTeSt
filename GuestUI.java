@@ -15,7 +15,7 @@ public class GuestUI extends CLI
    public GuestUI(User user, String title)
    {
       this.title = title;
-      this.screenNumber = 0;
+      this.screenNumber = 2;
       this.loggedUser = user.getLastName();
       this.userAccessLevel = 0; // Cannot be more than 0 for security reasons
       this.seperator = print(size); 
@@ -50,7 +50,7 @@ public class GuestUI extends CLI
       String lastName;
       String cpr;
       String[] address = new String[3];
-      int phoneNr;
+      String phoneNr;
       String password;
       String pass1;
       String pass2;
@@ -79,8 +79,8 @@ public class GuestUI extends CLI
       print();
       
       System.out.print("\tAddress - Street number : ");
-      int streetNumber = check("\tPlease write Street number (ex. 41) : ", 0, 999);
-      streetName += Integer.toString(streetNumber);
+      String streetNumber = check("\tPlease write Street number (ex. 41) : ", 0, 999);
+      streetName += streetNumber;
       System.out.println(streetName);
       address[0] = streetName;
       print();
@@ -91,8 +91,8 @@ public class GuestUI extends CLI
       print();
       
       System.out.print("\tAddress - Postcode : ");
-      int postCode = check("\tPlease write Postcode (ex. 2200) : ", 999, 9999);
-      address[2] = Integer.toString(postCode);
+      String postCode = check("\tPlease write Postcode (ex. 2200) : ", 999, 9999);
+      address[2] = postCode;
       System.out.println(address[2]);
       print();
       
@@ -113,13 +113,13 @@ public class GuestUI extends CLI
       print();
       password = pass1;
       
-      Guest Teo = new Guest (firstName, lastName, cpr, address, phoneNr, password, IDCounter);
+      Guest Teo = new Guest (firstName, lastName, cpr, "GU", address, phoneNr, password, IDCounter, 1.0);   // Double check the contructors, right now IDCounter is passed for a guestDays parameter in Guest
       System.out.println("\n" + Teo.toString());
    }
    
-   public static int check (String question, int min, int max)
+   public static String check (String question, int min, int max)
    {
-      int input = 0;
+      String input = null;
       boolean isValid = false;
       int a = 0;
       
@@ -133,8 +133,8 @@ public class GuestUI extends CLI
          else { a++; }
          if ( in.hasNextInt() ) 
          {
-            input = in.nextInt();
-            if ( input > min && input < max ) 
+            input = in.next();
+            if ( Integer.parseInt(input) > min && Integer.parseInt(input) < max ) 
             {
                isValid = true; 
             } 
