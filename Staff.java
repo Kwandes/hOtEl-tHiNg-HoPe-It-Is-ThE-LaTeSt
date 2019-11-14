@@ -7,7 +7,7 @@ public class Staff extends User implements UserManagement
       //Constructer 
       
    public Staff (String firstName, String lastName, String cpr, String type, 
-                 String[] address, int phoneNr, String password, int hours, 
+                 String[] address, String phoneNr, String password, int hours, 
                  double salary, int vacation) 
    {
       super(firstName, lastName, cpr, type, address, phoneNr, password);

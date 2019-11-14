@@ -287,10 +287,10 @@ public class MainFrame // MF or motherFucker for short
       arr[1] = "Yote";
       arr[2] = "yoten";
       
-      GuestUI ui;
+      StaffUI ui;
       try
       {
-         ui = new GuestUI(user, "YEET");
+         ui = new StaffUI(user, "YEET");
          createLog("Ui created", Log.Type.INFO);
          ui.display();
       }

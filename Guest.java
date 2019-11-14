@@ -6,7 +6,7 @@ public class Guest extends User implements UserManagement
       //Constructor
       
    public Guest (String firstName, String lastName, String cpr, String type, 
-                 String[] adress, String phoneNr, String password, int guestDays, double moneySpent)
+                 String[] address, String phoneNr, String password, int guestDays, double moneySpent)
    {
       this.firstName = firstName;
       this.lastName = lastName;
