@@ -12,7 +12,9 @@ public class GuestUI extends CLI
    private static Scanner in2 = new Scanner(System.in); //bug issue with the scanners, had to make an extra.
    private static int IDCounter = 0;
    
-   public GuestUI(Guest user, String title) throws Exception
+   private MainFrame mf;
+   
+   public GuestUI(Guest user, String title, MainFrame mfRef) throws Exception
    {
       this.title = title;
       this.screenNumber = 2;
@@ -20,7 +22,11 @@ public class GuestUI extends CLI
       this.userAccessLevel = 0; // Cannot be more than 0 for security reasons
       this.seperator = print(size); 
       this.running = true;
+      this.mf = mfRef;
    }
+   
+   public GuestUI()
+   {}
    
    public void display()
    {

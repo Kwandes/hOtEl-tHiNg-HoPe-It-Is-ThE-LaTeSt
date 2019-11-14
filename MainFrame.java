@@ -23,6 +23,14 @@ public class MainFrame // MF or motherFucker for short
    
       file = new FileManagement("Logs");
       createLog("New MainFrame has been created", Log.Type.INFO);
+   }    
+   
+   public MainFrame()
+   {  
+      this.printLogsToConsole = false;
+   
+      file = new FileManagement("Logs");
+      createLog("New MainFrame has been created", Log.Type.INFO);
    } 
    
    public void init()
@@ -278,26 +286,45 @@ public class MainFrame // MF or motherFucker for short
    
    public void yeet()
    {  
-      LoginUI login = new LoginUI("Hotel PlAzA");
-      login.display();
-      Guest user = login.getUser();
+      LoginUI loginUI = new LoginUI("Hotel PlAzA", this);
+      loginUI.display();
       
-      String[] arr = new String[3];
-      arr[0] = "Yeet";
-      arr[1] = "Yote";
-      arr[2] = "yoten";
+      Staff staffMember = null;
+      Guest guest = null;
+      StaffUI staffUI;
+      GuestUI guestUI;
       
-      StaffUI ui;
+      createLog("Moving to next UI", Log.Type.INFO);
       try
       {
-         ui = new StaffUI(user, "YEET");
-         createLog("Ui created", Log.Type.INFO);
-         ui.display();
+         if( loginUI.getStaff() != null)
+         {
+            createLog("Creating StaffUI", Log.Type.INFO);
+            staffMember = loginUI.getStaff();
+            
+            staffUI = new StaffUI(staffMember, "YEET", this);
+            staffUI.setMFRef(this);
+            createLog("StaffUi created", Log.Type.INFO);
+            staffUI.display();
+         }
+         else if ( loginUI.getGuest() != null)
+         {
+            createLog("Creating GuestUI", Log.Type.INFO);
+            guest = loginUI.getGuest();
+            
+            guestUI = new GuestUI(guest, "YEET", this);
+            createLog("GuestUi created", Log.Type.INFO);
+            guestUI.display();
+         }
+         else
+         {
+            createLog("No UI openable", Log.Type.WARNING);
+         }
       }
       catch (Exception e)
       {
          createLog(e, Log.Type.ERROR);
-         createLog("Guest UI failed to create", Log.Type.WARNING);
+         createLog("User UI failed to create", Log.Type.WARNING);
       }
    }
    

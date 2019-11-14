@@ -3,22 +3,23 @@ import java.util.*;
 
 public class StaffUI extends CLI
 {
-     private static String firstName;
-     private static String lastName;
-     private static String fullName;
-     private static String cpr;
-     private static String[] address = new String[3];
-     private static String phoneNumber;
-     private static String password;
-     private static String pass1;
-     private static String pass2;
-     private static int hours;
-     private static double salary;
-     private static int vacation;
+   private String firstName;
+   private String lastName;
+   private String fullName;
+   private String cpr;
+   private String[] address = new String[3];
+   private String phoneNumber;
+   private String password;
+   private String pass1;
+   private String pass2;
+   private int hours;
+   private double salary;
+   private int vacation;
+   private int headerLength = 100;
+   
+   private MainFrame mf;
 
-   private static int headerLength = 100;
-
-   public StaffUI(User user, String title)
+   public StaffUI(Staff user, String title, MainFrame mfRef)
    {
       this.title = title;
       this.screenNumber = 0;
@@ -26,8 +27,10 @@ public class StaffUI extends CLI
       //this.userAccessLevel = user.getAccessLevel();
       this.seperator = "----------------------------------------------------------------------------------------------------"; // 100 dashes
       this.running = true;
+      this.mf = mfRef;
    }
-      public StaffUI(User user, String title, int accessLevel)
+   
+   public StaffUI(Staff user, String title, MainFrame mfRef, int accessLevel)
    {
       this.title = title;
       this.screenNumber = 0;
@@ -35,6 +38,7 @@ public class StaffUI extends CLI
       this.userAccessLevel = accessLevel;
       this.seperator = "----------------------------------------------------------------------------------------------------"; // 100 dashes
       this.running = true;
+      this.mf = mfRef;
    }
    
    public void display()
@@ -69,19 +73,20 @@ public class StaffUI extends CLI
          }
       }  
    }
-public static void main(String[] args)
-{
-   createGuest();
-   //createStaff();
-}
    
-   public static void createBooking()
+   public  void main(String[] args)
+   {
+      createGuest();
+      //createStaff();
+   }
+   
+   public  void createBooking()
    {
       
    }
    
    
-   public static void createStaff()
+   public  void createStaff()
    {
       //this.screenNumber = 2;
       //Staff firstName, lastName, cpr, type, address, phoneNumber, password,int hours, double salary, int vacation)
@@ -98,7 +103,7 @@ public static void main(String[] args)
       Staff created = new Staff( firstName, lastName, cpr, "ST", address, phoneNumber, password, hours, salary, vacation);
    }
 
-   public static void createGuest() 
+   public  void createGuest() 
    {
       //this.screenNumber = 1;
       creationTemplate("Guest");
@@ -106,7 +111,7 @@ public static void main(String[] args)
       System.out.println(); 
    }
 
-   public static void creationTemplate(String type)
+   public  void creationTemplate(String type)
    {
       Scanner input = new Scanner(System.in);
       Scanner inputAddress = new Scanner(System.in);
@@ -156,8 +161,7 @@ public static void main(String[] args)
       System.out.println();  
    }
    
-   
-   public static double doubleCheck()
+   public  double doubleCheck()
    {
       Scanner input = new Scanner(System.in);
       double number;
@@ -173,7 +177,7 @@ public static void main(String[] args)
    }
    
    
-   public static int intCheck()
+   public  int intCheck()
    {
       Scanner input = new Scanner(System.in);
       int number;
@@ -188,7 +192,7 @@ public static void main(String[] args)
       return number;
    }
    
-   public static String phoneNumberCheck(Scanner console)
+   public  String phoneNumberCheck(Scanner console)
    {
       String number;
       number = console.next();
@@ -241,13 +245,9 @@ public static void main(String[] args)
       }
       return number;
    }
-
-   
-   
-   
    
    //Check to see that CPR is valid
-   public static String cprCheck(Scanner console)
+   public  String cprCheck(Scanner console)
    {  
       String cpr = "";
       cpr = console.next();
@@ -317,8 +317,7 @@ public static void main(String[] args)
       return cpr;
    }
    
-   
-   public static String nameFixer(String name)
+   public  String nameFixer(String name)
    {
       String namePart;
       String fixedName = "";
@@ -352,10 +351,7 @@ public static void main(String[] args)
       return fixedName;  
    }
    
-   
-   
-   
-   public static void printLines()
+   public  void printLines()
    {
       for (int i = 0; i < headerLength; i++)
       {
@@ -364,12 +360,12 @@ public static void main(String[] args)
       System.out.println();
    }
      
-   public static void print(String text)
+   public  void print(String text)
    {
       System.out.println("\t>" + text);
    }
   
-   public static void header(String text)
+   public  void header(String text)
    {
       print("HOTEL PLAZA");
       print("@ " + "CURRENT STAFF");
@@ -378,12 +374,7 @@ public static void main(String[] args)
       printLines();
       System.out.println();
       
-   }
-
-  
-
-  
-  
+   }  
    
    public void mainMenu()
    {
@@ -394,5 +385,12 @@ public static void main(String[] args)
    public void exit()
    {
       this.running = false;
+   }
+   
+   ////////// Setters & Getters //////////
+   
+   public void setMFRef(MainFrame mfRef)
+   {
+      this.mf = mfRef;
    }
 }  
