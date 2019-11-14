@@ -1,7 +1,6 @@
 Assumptions (not discussed, to be discussed during the next meeting)
--Room price is static
--How information is sent to the FileManagement(for now, separate functions for each type)
--passwords are hashed and never stored in OG format
+-Teo, why are your methods in GuestUI static?
+-Let's think about your print methods (design the UI)
 
 Facts:
 
@@ -16,4 +15,9 @@ Interface = classManagement
 user interaction = UI
 file names: /files./users.txt
 config: ./config.cfg
+
+Other:
+-Room price is adjustable globally via config and locally (per object) via a setter
+-MF <> FileManagement communciation is handled using an Information object
+-Passwords will be hashed
 
