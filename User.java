@@ -5,17 +5,17 @@ public class User
 {   
       //Attributes 
    
-   private Scanner in = new Scanner(System.in);
-   private String firstName;
-   private String lastName;
-   private String cpr;          // maybe change for "String" depending on the '-'
+   protected Scanner in = new Scanner(System.in);
+   protected String firstName;
+   protected String lastName;
+   protected String cpr;          // maybe change for "String" depending on the '-'
    public String type;         // GU = guest, DI = Director etc.
-   private String[] address = new String[3]; //0 = Street name, 1 = city, 2 = postcode
-   private String phoneNr;         // max 8 digits.
-   private String password;
-   private String ID;           // Type + 2 last digits from PhoneNr + initals ( first letter of each name)
-   private int accessLevel;     // 0 - 6
-   private final String[] TYPE = { "Guest", "Cleaner", "Receptionist", "Accountant", "Director" };
+   protected String[] address = new String[3]; //0 = Street name, 1 = city, 2 = postcode
+   protected String phoneNr;         // max 8 digits.
+   protected String password;
+   protected String ID;           // Type + 2 last digits from PhoneNr + initals ( first letter of each name)
+   protected int accessLevel;     // 0 - 6
+   protected final String[] TYPE = { "Guest", "Cleaner", "Receptionist", "Accountant", "Director" };
    
       //Constructor 
    

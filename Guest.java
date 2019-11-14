@@ -8,7 +8,13 @@ public class Guest extends User implements UserManagement
    public Guest (String firstName, String lastName, String cpr, String type, 
                  String[] adress, String phoneNr, String password, int guestDays, double moneySpent)
    {
-      super(firstName, lastName, cpr, "GU", adress, phoneNr, password);
+      this.firstName = firstName;
+      this.lastName = lastName;
+      this.cpr = cpr;
+      this.type = type;
+      this.address = address;
+      this.phoneNr = phoneNr;
+      this.password = password;
       this.guestDays = guestDays;
       this.moneySpent = moneySpent;
    }  

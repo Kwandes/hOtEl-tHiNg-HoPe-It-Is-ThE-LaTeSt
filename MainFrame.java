@@ -278,13 +278,27 @@ public class MainFrame // MF or motherFucker for short
    
    public void yeet()
    {  
+      LoginUI login = new LoginUI("Hotel PlAzA");
+      login.display();
+      Guest user = login.getUser();
+      
       String[] arr = new String[3];
       arr[0] = "Yeet";
       arr[1] = "Yote";
       arr[2] = "yoten";
-      GuestUI ui = new GuestUI(new Guest("Faisal", "Boolyan", "1234561234", "GU", arr, "12345678", "passwd", 0, 0.0), "YEET");
-      createLog("Ui created", Log.Type.INFO);
-      ui.display();
+      
+      GuestUI ui;
+      try
+      {
+         ui = new GuestUI(user, "YEET");
+         createLog("Ui created", Log.Type.INFO);
+         ui.display();
+      }
+      catch (Exception e)
+      {
+         createLog(e, Log.Type.ERROR);
+         createLog("Guest UI failed to create", Log.Type.WARNING);
+      }
    }
    
    ////////// Getters and Setter //////////

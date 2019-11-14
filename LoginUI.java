@@ -1,7 +1,7 @@
 import java.util.*;
 import java.io.*;
 
-public class GuestUI extends CLI
+public class LoginUI extends CLI
 {   
    private static int size = 100;
    private static String[] error = { addText("Too long", size), addText("Too short", size), 
@@ -12,12 +12,12 @@ public class GuestUI extends CLI
    private static Scanner in2 = new Scanner(System.in); //bug issue with the scanners, had to make an extra.
    private static int IDCounter = 0;
    
-   public GuestUI(Guest user, String title) throws Exception
+   private Guest user;
+   
+   public LoginUI(String title)
    {
       this.title = title;
-      this.screenNumber = 2;
-      this.loggedUser = user.getLastName();
-      this.userAccessLevel = 0; // Cannot be more than 0 for security reasons
+      this.screenNumber = 1;  // MainMenu
       this.seperator = print(size); 
       this.running = true;
    }
@@ -33,15 +33,79 @@ public class GuestUI extends CLI
             // each "screen" has a specific screen Number
             // screens choosing example below
             case 1:
-               registerGuest();
+               mainMenu();
                break;
             case 2:
-               mainMenu();
+               login();
+               break;
+            case 3:
+               registerGuest();
                break;
             case 99:
                exit();
+               break;
+            default:
+               mainMenu();
+               break;
          }
       }  
+   }
+   
+   public void mainMenu()
+   {
+      Scanner input = new Scanner(System.in);
+      
+      print();
+      printText(title, size);
+      print();
+      System.out.println(">What would you like to do");
+      System.out.println("(1) Log In \n(2) Register \n(3) Exit");
+      
+      String temp  = input.nextLine();
+      switch(temp)
+      {
+         case "1":
+            this.screenNumber = 2;
+            break;
+         case "2":
+            this.screenNumber = 2;
+            break;
+         case "3":
+            this.screenNumber = 3;
+            break;
+         default:
+            this.screenNumber = 1;
+            break;
+      }
+   }
+   
+   public void login()
+   {  
+      Scanner input = new Scanner(System.in);
+      
+      print();
+      printText(title, size);
+      printText("Log In", size);
+      print();
+      
+      System.out.print(">Username: ");
+      
+      String userName  = input.nextLine();
+      
+      System.out.print(">Password: ");
+      
+      String password  = input.nextLine();
+      
+      printText("All good bro, ain't even gonna check", size);
+      
+      // Placeholder user init
+      String[] arr = new String[3];
+      arr[0] = "Yeet";
+      arr[1] = "Yote";
+      arr[2] = "yoten";
+      user = new Guest ("Faisal", "Boolyan", "1234561234", "GU", arr, "12345678", "passwd", 0, 0.0);   // Double check the contructors, right now IDCounter is passed for a guestDays parameter in Guest
+      
+      this.screenNumber = 99; // Exit loginUI
    }
    
    public static void registerGuest () 
@@ -387,13 +451,15 @@ public class GuestUI extends CLI
       print();
    }
    
-   public void mainMenu()
-   {
-      this.screenNumber = 1;
-   }
-   
    public void exit()
    {
       this.running = false;
+   }
+   
+   ////////// Getters and Setters //////////
+   
+   public Guest getUser()
+   {
+      return this.user;
    }
 }
