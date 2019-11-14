@@ -3,25 +3,26 @@ import java.util.*;
 
 public class StaffUI extends CLI
 {
-     private static String firstName;
-     private static String lastName;
-     private static String fullName;
-     private static String cpr;
-     private static String[] address = new String[3];
-     private static String phoneNumber;
-     private static String password;
-     private static String pass1;
-     private static String pass2;
-     private static int hours;
-     private static double salary;
-     private static int vacation;
+   private  int spacerVariable = 40; 
+     private  String firstName;
+     private  String lastName;
+     private  String fullName;
+     private  String cpr;
+     private  String[] address = new String[3];
+     private  String phoneNumber;
+     private  String password;
+     private  String pass1;
+     private  String pass2;
+     private  int hours;
+     private  double salary;
+     private  int vacation;
 
-   private static int headerLength = 100;
+   private  int headerLength = 100;
 
    public StaffUI(User user, String title)
    {
       this.title = title;
-      this.screenNumber = 0;
+      this.screenNumber = 10;
       this.loggedUser = user.getLastName();
       //this.userAccessLevel = user.getAccessLevel();
       this.seperator = "----------------------------------------------------------------------------------------------------"; // 100 dashes
@@ -30,7 +31,7 @@ public class StaffUI extends CLI
       public StaffUI(User user, String title, int accessLevel)
    {
       this.title = title;
-      this.screenNumber = 0;
+      this.screenNumber = 10;
       this.loggedUser = user.getLastName();
       this.userAccessLevel = accessLevel;
       this.seperator = "----------------------------------------------------------------------------------------------------"; // 100 dashes
@@ -48,42 +49,51 @@ public class StaffUI extends CLI
             // each "screen" has a specific screen Number
             // screens choosing example below
             
-            case 1: //Create a Guest
+            case 1:
+               spacer();
                createGuest();
+               returnQuit();
                break; 
             case 2:
+               spacer();
                createStaff();
+               returnQuit();
                break;
             case 3:
+               spacer();
                createBooking();
+               returnQuit();
                break;
-            case 98:
-               mainMenu();
-               break;
-            case 99:
+            case 5:
                exit();
                break;
+            case 10:
+               mainMenu();
+               break;
             default:
+               print("invalid input, please try again.");
+               System.out.println();
+               System.out.println();
                mainMenu();
                break;
          }
       }  
    }
-public static void main(String[] args)
-{
-   createGuest();
-   //createStaff();
-}
+// public  void main(String[] args)
+// {
+//    createGuest();
+//    //createStaff();
+// }
    
-   public static void createBooking()
+   public  void createBooking()
    {
       
    }
    
    
-   public static void createStaff()
+   public  void createStaff()
    {
-      //this.screenNumber = 2;
+      this.screenNumber = 2;
       //Staff firstName, lastName, cpr, type, address, phoneNumber, password,int hours, double salary, int vacation)
       creationTemplate("Staff");
       print("How many hours will " + firstName + " be working weekly?");
@@ -98,7 +108,7 @@ public static void main(String[] args)
       Staff created = new Staff( firstName, lastName, cpr, "ST", address, phoneNumber, password, hours, salary, vacation);
    }
 
-   public static void createGuest() 
+   public  void createGuest() 
    {
       //this.screenNumber = 1;
       creationTemplate("Guest");
@@ -106,7 +116,7 @@ public static void main(String[] args)
       System.out.println(); 
    }
 
-   public static void creationTemplate(String type)
+   public  void creationTemplate(String type)
    {
       Scanner input = new Scanner(System.in);
       Scanner inputAddress = new Scanner(System.in);
@@ -157,7 +167,7 @@ public static void main(String[] args)
    }
    
    
-   public static double doubleCheck()
+   public  double doubleCheck()
    {
       Scanner input = new Scanner(System.in);
       double number;
@@ -173,7 +183,7 @@ public static void main(String[] args)
    }
    
    
-   public static int intCheck()
+   public  int intCheck()
    {
       Scanner input = new Scanner(System.in);
       int number;
@@ -188,7 +198,7 @@ public static void main(String[] args)
       return number;
    }
    
-   public static String phoneNumberCheck(Scanner console)
+   public  String phoneNumberCheck(Scanner console)
    {
       String number;
       number = console.next();
@@ -247,7 +257,7 @@ public static void main(String[] args)
    
    
    //Check to see that CPR is valid
-   public static String cprCheck(Scanner console)
+   public  String cprCheck(Scanner console)
    {  
       String cpr = "";
       cpr = console.next();
@@ -318,7 +328,7 @@ public static void main(String[] args)
    }
    
    
-   public static String nameFixer(String name)
+   public  String nameFixer(String name)
    {
       String namePart;
       String fixedName = "";
@@ -355,7 +365,7 @@ public static void main(String[] args)
    
    
    
-   public static void printLines()
+   public  void printLines()
    {
       for (int i = 0; i < headerLength; i++)
       {
@@ -364,12 +374,12 @@ public static void main(String[] args)
       System.out.println();
    }
      
-   public static void print(String text)
+   public  void print(String text)
    {
       System.out.println("\t>" + text);
    }
   
-   public static void header(String text)
+   public  void header(String text)
    {
       print("HOTEL PLAZA");
       print("@ " + "CURRENT STAFF");
@@ -380,15 +390,44 @@ public static void main(String[] args)
       
    }
 
-  
+   public  void spacer()
+   {
+      for (int i=0; i<spacerVariable; i++)
+      {
+         System.out.println();
+      }
+   }
 
-  
+   public void returnQuit()
+   {
+      int choice;
+      
+      print("What would you like to do?");
+      System.out.println();
+      print("1 Return to main menu");
+      print("2 Quit");
+      choice = intCheck();
+      switch (choice)
+      {
+         case 1:
+            this.screenNumber = 10; //mainMenu's number
+            break;
+         case 2:
+            this.running = false;
+            break;
+      }
+   }
   
    
    public void mainMenu()
    {
-      this.screenNumber = 98;
+      this.screenNumber = 10; 
+      Scanner input = new Scanner(System.in);
       header("Main Menu");
+      print("1 Create a guest");
+      print("2 create a staff");
+      print("3 create a booking");
+      screenNumber = intCheck();
    }
    
    public void exit()
