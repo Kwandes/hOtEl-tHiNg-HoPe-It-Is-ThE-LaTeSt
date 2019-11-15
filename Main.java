@@ -11,7 +11,7 @@ public class Main
       hotel.init();
       if(hotel.getInitStatus())
       {
-         hotel.yeet();
+         hotel.openCLI();
       }
    }
 }

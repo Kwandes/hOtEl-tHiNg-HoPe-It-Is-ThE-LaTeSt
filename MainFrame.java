@@ -8,20 +8,31 @@ import java.io.FileInputStream;
 
 public class MainFrame // MF or motherFucker for short
 {
-   private ArrayList<User> userList;
-   private ArrayList<Room> roomList;
    private ArrayList<Booking> bookingList;
    private ArrayList<Booking> archivedBookingList;
+   private ArrayList<Room> roomList;
+   private ArrayList<Guest> guestList;
+   private ArrayList<Staff> staffList;
+   
    private FileManagement file;
    private boolean printLogsToConsole;
    private Properties config;
    private boolean isInitiatedProperly;
+   private String appTitle;
 
    public MainFrame(boolean printLogs)
    {  
       this.printLogsToConsole = printLogs;
    
-      file = new FileManagement("Logs");
+      file = new FileManagement(this, "Logs");
+      createLog("New MainFrame has been created", Log.Type.INFO);
+   }    
+   
+   public MainFrame()
+   {  
+      this.printLogsToConsole = false;
+   
+      file = new FileManagement(this, "Logs");
       createLog("New MainFrame has been created", Log.Type.INFO);
    } 
    
@@ -37,20 +48,28 @@ public class MainFrame // MF or motherFucker for short
          config = new Properties();
          config.load(new FileInputStream("config.properties"));
          createLog("Config loaded", Log.Type.INFO);
+         this.appTitle = config.getProperty("appTitle", "YEET");
+         
+         file.setFilePaths(config);
          
          ////////// Get config and init arrays //////////
          // get config with filepaths etc
-         // populate userList
-         userList = new ArrayList<User>();
-         //bookingList = new ArrayList<Booking>();
-         // populate roomList
-         // populate bookingList;
-         //ArrayList<String> array = new ArrayList<String>();
-         //array.get(1);   // Example invalid array for exception logging debug
+         
+         // load ALL arrays from file
+         Information info = new Information(true, true, true, true, true);
+         info = file.loadData(info);
+         
+         bookingList = info.bookingList;
+         archivedBookingList = info.archivedBookingList;
+         roomList = info.roomList;
+         guestList = info.guestList;
+         staffList = info.staffList;
+         
          createLog("ArrayList setup complete", Log.Type.INFO);
          ////////// Run CLI/UI/whatever we called it //////////
          // create UI object and run UI
          createLog("MainFrame init has completed successfully", Log.Type.INFO);
+         playMusic();
          this.isInitiatedProperly = true;
       }
       catch (Exception e)
@@ -69,112 +88,58 @@ public class MainFrame // MF or motherFucker for short
    {  
       try
       {
-         for(int i = 0; i < userList.size(); i++)
+         for(int i = 0; i < staffList.size(); i++)
          {
-//             if(userList.get(i).getPhoneNumber().equals(phoneNumber) && userList.get(i).getPassword().equals(password))
-//             {
-//                createLog("User " + userList.get(i).getUserID() + " has logged in", Log.Type.INFO);
-//                return userList.get(i);
-//             }
+            if(staffList.get(i).getPhoneNumber().equals(phoneNumber) && staffList.get(i).getPassword().equals(password))
+            {
+               createLog("Staff Member " + staffList.get(i).getID() + " has logged in", Log.Type.INFO);
+               return staffList.get(i);
+            }
+         }
+         
+         for(int i = 0; i < guestList.size(); i++)
+         {
+            if(guestList.get(i).getPhoneNumber().equals(phoneNumber) && guestList.get(i).getPassword().equals(password))
+            {
+               createLog("Guest " + guestList.get(i).getID() + " has logged in", Log.Type.INFO);
+               return guestList.get(i);
+            }
          }
       }
       catch (Exception e) {  createLog(e, Log.Type.ERROR); } 
+      createLog("Failed Login attempt, phone Number: " + phoneNumber + " , password: " + password, Log.Type.INFO);
       return null;   // If the login info is invalid return null
    }
    
-   public ArrayList<Room> getAvailableRooms()
-   {
-      ArrayList<Room> availableRooms = new ArrayList<Room>();
-      try
-      {
-         for(int i = 0; i < roomList.size(); i++)
-         {
-//             if(!roomList.get(i).isBooked())
-//             {
-//                availableRooms.add(roomList.get(i));
-//             }
-         } 
-         createLog("No available rooms found", Log.Type.WARNING);
-      }
-      catch (Exception e) {  createLog(e, Log.Type.ERROR); }     
-      return availableRooms;  // If no rooms found it will be null
-   }
-   
-   public ArrayList<Room> getAvailableRooms(int startDate, int endDate)
-   {
-      ArrayList<Room> availableRooms = new ArrayList<Room>();
-//       try
-//          {
-//          for(int i = 0; i < roomList.size(); i++)
-//          {
-//             if(!roomList.get(i).isBooked())
-//             {
-//                for(int j = 0; i < roomList.size(); j++)
-//                {
-//                   if(!bookingList.get(j).isBookable(roomList.get(i).getRoomID(), startDate, endDate))
-//                   {
-//                      availableRooms.add(roomList.get(i));
-//                   }
-//                }
-//             }
-//          }
-//       }
-//       catch (Exception e) {  createLog(e, Log.Type.ERROR); }
-      
-      createLog("No available rooms found", Log.Type.WARNING);
-      return availableRooms;  // If no rooms found it will be null
-   }
-   
-   public Booking bookRoom(int roomID, int userID, int startDate, int endDate)
+   public void createBooking(int roomID, int userID, int startDate, int endDate, int roomPrice, boolean hasInternet)
    {
       try
       {
-//          bookingList.add(new Booking(roomID, userID, startDate, endDate));
-//          //file.saveBookingToFile(bookingList);
-//          file.saveBookingToFile(bookingList);
-//          createLog("New Booking created, id: " + bookingList.get(bookingList.size()-1) + " by " + userID, Log.Type.INFO);
-//          return bookingList.get(bookingList.size()-1);
+         int bookingID = 1;
+         bookingList.add(new Booking(bookingID, roomID, Integer.toString(userID), startDate, endDate, roomPrice, hasInternet));
+         
+         file.saveData(new Information(bookingList, null, null, null, null));
+         createLog("New Booking created, id: " + bookingList.get(bookingList.size()-1).getBookingID() + " by " + userID, Log.Type.INFO);
       }
       catch (Exception e) {  createLog(e, Log.Type.ERROR); }
-      return null;
    }
    
-   public Booking modifyBooking(int bookingID, int startDate, int endDate)
+   public void replaceBooking(int bookingID, Booking newBooking)
    {
       try
       {
          for(int i = 0; i < bookingList.size(); i++)
          {
-//             if(bookingList.get(i).getBookingID() == bookingID)
-//             {
-//                bookingList.get(i).setStartDate(startDate);
-//                bookingList.get(i).setEndDate(endDate);
-//                createLog("Booking " + bookingID + "has been modified", Log.Type.INFO);
-//                return bookingList.get(i);
-//             }
+            if(bookingList.get(i).getBookingID() == bookingID)
+            {
+               bookingList.set(i, newBooking);
+               file.saveData(new Information(bookingList, null, null, null, null));
+               createLog("Booking " + bookingID + "has been modified", Log.Type.INFO);
+               break;
+            }
          }
       }
       catch (Exception e) {  createLog(e, Log.Type.ERROR); }
-      return null;
-   }   
-   
-   public boolean removeBooking(int bookingID)
-   {
-      try
-      {
-         for(int i = 0; i < bookingList.size(); i++)
-         {
-//             if(bookingList.get(i).getBookingID() == bookingID)
-//             {
-//                archivedBookingList.add(bookingList.get(i));
-//                bookingList.remove(i);
-//                createLog("Booking " + bookingID + "has been removed", Log.Type.INFO);
-//                return true;
-//             }
-         }
-      }
-      catch (Exception e) {  createLog(e, Log.Type.ERROR); }
-      return false;
    }
    
    public ArrayList<Booking> getUsersBookings(int userID)
@@ -184,10 +149,10 @@ public class MainFrame // MF or motherFucker for short
       {
          for(int i = 0; i < bookingList.size(); i++)
          {
-//             if(bookingList.get(i).getUserID() == userID)
-//             {
-//                userBookings.add(bookingList.get(i));
-//             }
+            if(bookingList.get(i).getUserID().equals(userID))
+            {
+               userBookings.add(bookingList.get(i));
+            }
          }
       }
       catch (Exception e) {  createLog(e, Log.Type.ERROR); }   
@@ -204,9 +169,10 @@ public class MainFrame // MF or motherFucker for short
          {
             if(roomList.get(i).getRoomID() == roomID)
             {
-//                roomList.get(i).setRequiresCleaning(true);
-//                file.saveRoomToFile(roomList);
-//                createLog("Room " + roomID + "has changed status to : requires cleaning", Log.Type.INFO);
+               roomList.get(i).setRequiresCleaning(true);
+               file.saveData(new Information(null, null, roomList, null, null));
+               createLog("Room " + roomID + "has changed status to : requires cleaning", Log.Type.INFO);
+               break;
             }
          }
       }
@@ -215,21 +181,37 @@ public class MainFrame // MF or motherFucker for short
    
    ////////// User management //////////
    // contact interface : populate array
-   public void setUserList()
+   public void setGuestList(ArrayList<Guest> guestList)
    {
-//       userList = file.loadUsersFromFile("userList path");
+       this.guestList = guestList;
+       file.saveData(new Information(null, null, null, guestList, null));
+       createLog("Guest List modified and saved", Log.Type.INFO);
    }
    
-   public ArrayList<User> getUserList()
+   public ArrayList<Guest> getGuestList()
    {
-      return userList;
+      return guestList;
+   }
+   
+   public void setStaffList(ArrayList<Staff> staffList)
+   {
+       this.guestList = guestList;
+       file.saveData(new Information(null, null, null, null, staffList));
+       createLog("Staff List modified and saved", Log.Type.INFO);
+   }
+   
+   public ArrayList<Staff> getStaffList()
+   {
+      return staffList;
    }
    
    ////////// Room management //////////
    // contact interface : populate array
-   public void setRoomList()
+   public void setRoomList(ArrayList<Room> roomList)
    {
-//       roomList = file.loadRoomsFromFile("userList path");
+       this.roomList = roomList;
+       file.saveData(new Information(null, null, roomList, null, null));
+       createLog("RoomList modified and saved", Log.Type.INFO);
    }
    
    public ArrayList<Room> getRoomList()
@@ -239,21 +221,16 @@ public class MainFrame // MF or motherFucker for short
    
    ////////// Booking management //////////
    // contact interface : populate array
-   public void steBookingList()
+   public void setBookingList(ArrayList<Booking> bookingList)
    {
-//       bookingList = file.loadBookingsFromFile("userList path");
+      this.bookingList = bookingList;
+      bookingList = file.loadData(new Information(true, false, false, false, false)).bookingList;
+      createLog("Booking List modified and saved", Log.Type.INFO);
    }
    
    public ArrayList<Booking> getBookingList()
    {
       return bookingList;
-   }
-   
-   ////////// Overall Management //////////
-   // Doesn't work, I wanna make it work
-   public void saveToFile(ArrayList<Object> array)
-   {
-//       file.saveToFile(array);
    }
    
    ////////// Config //////////
@@ -271,33 +248,101 @@ public class MainFrame // MF or motherFucker for short
    }
    
    ////////// testing purpose code //////////
-   public void addUser(User user)
-   {
-      userList.add(user);
-   }
+//    public void addUser(User user)
+//    {
+//       userList.add(user);
+//    }
    
-   public void yeet()
+   ////////// User Interface //////////
+   public void openCLI()
    {  
-      LoginUI login = new LoginUI("Hotel PlAzA");
-      login.display();
-      Guest user = login.getUser();
+      LoginUI loginUI = new LoginUI(this.appTitle, this);
+      loginUI.display();
       
-      String[] arr = new String[3];
-      arr[0] = "Yeet";
-      arr[1] = "Yote";
-      arr[2] = "yoten";
+      Staff staffMember = null;
+      Guest guest = null;
+      StaffUI staffUI;
+      GuestUI guestUI;
       
-      StaffUI ui;
+      createLog("Moving to next UI", Log.Type.INFO);
       try
       {
-         ui = new StaffUI(user, "YEET");
-         createLog("Ui created", Log.Type.INFO);
-         ui.display();
+         if( loginUI.getStaff() != null)
+         {
+            createLog("Creating StaffUI", Log.Type.INFO);
+            staffMember = loginUI.getStaff();
+            
+            staffUI = new StaffUI(staffMember, this.appTitle, this);
+            staffUI.setMFRef(this);
+            createLog("StaffUi created", Log.Type.INFO);
+            staffUI.display();
+         }
+         else if ( loginUI.getGuest() != null)
+         {
+            createLog("Creating GuestUI", Log.Type.INFO);
+            guest = loginUI.getGuest();
+            
+            guestUI = new GuestUI(guest, this.appTitle, this);
+            createLog("GuestUi created", Log.Type.INFO);
+            guestUI.display();
+         }
+         else
+         {
+            createLog("No UI openable OR User has exited the application", Log.Type.WARNING);
+         }
       }
       catch (Exception e)
       {
          createLog(e, Log.Type.ERROR);
-         createLog("Guest UI failed to create", Log.Type.WARNING);
+         createLog("User UI failed to create", Log.Type.WARNING);
+      }
+   }
+   
+   ////////// Array Element Removal //////////
+   
+   public void removeBooking(int bookingID)
+   {
+      for (int i = 0 ; i < bookingList.size(); i++)
+      {
+         if (bookingList.get(i).getBookingID() == bookingID)
+         {
+            bookingList.remove(i);
+            file.saveData(new Information(bookingList, null, null, null, null));
+            createLog("Booking " + bookingID + "has been removed", Log.Type.INFO);
+            break;
+         }
+      }
+   }
+   
+   public void archiveBooking(int bookingID)
+   {
+      for (int i = 0 ; i < bookingList.size(); i++)
+      {
+         if (bookingList.get(i).getBookingID() == bookingID)
+         {
+            archivedBookingList.add(bookingList.get(i));
+            bookingList.remove(i);
+            file.saveData(new Information(bookingList, archivedBookingList, null, null, null));
+            createLog("Booking " + bookingID + "has been archived", Log.Type.INFO);
+            break;
+         }
+      }
+   }
+   
+   ////////// Extra functionality //////////
+   
+   public void playMusic()
+   {
+      try
+      {
+         Musik yes = new Musik(config.getProperty("musicFile"));
+         yes.play();
+         createLog("Playing " + config.getProperty("musicFile"), Log.Type.INFO);
+      }
+      catch (Exception e)
+      {
+         createLog("Unable to play Music", Log.Type.WARNING);
+         createLog(e, Log.Type.ERROR);
       }
    }
    

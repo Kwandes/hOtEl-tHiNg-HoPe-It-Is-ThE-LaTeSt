@@ -69,7 +69,7 @@ public class User
              "\n\tCpr          : " + cpr + 
              "\n\tUser status  : " + getType(type) +
              "\n\tAddress      : " + add(address) + 
-             "\n\tPhonenumber  : " + phoneNr;
+             "\n\tPhonenumber  : " + phoneNumber;
    }
    
    public String fileFormatString () 
@@ -161,13 +161,18 @@ public class User
       return address;
    }
    
-   public String getPhoneNr () 
+   public String getPhoneNumber () 
    {
-      return phoneNr;
+      return phoneNumber;
    }
    
    public String getPassword () 
    {
       return password;
+   }
+   
+   public String getID () 
+   {
+      return ID;
    }
 }

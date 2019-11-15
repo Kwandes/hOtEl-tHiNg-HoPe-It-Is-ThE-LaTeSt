@@ -15,11 +15,12 @@ public class Guest extends User
       this.cpr = cpr;
       this.type = type;
       this.address = address;
-      this.phoneNr = phoneNr;
+      this.phoneNumber = phoneNr;
       this.password = password;
       this.guestDays = 0;
       this.moneySpent = 0.0;
-      this.ID = "G" + accessLevel + IDCounter;   
+      this.ID = "G" + accessLevel + IDCounter;
+      this.accessLevel = 0;
    }  
    
       //Methods
@@ -91,8 +92,13 @@ public class Guest extends User
       return moneySpent;
    }
    
-   public String getID () 
+   public String getID ()
    {
       return ID;
+   }
+    
+   public int getAccessLevel ()
+   {
+      return this.accessLevel;
    }
 }
