@@ -5,6 +5,8 @@ public class Staff extends User implements UserManagement
    private int vacation;        //pr year
    
       //Constructer 
+   
+   public Staff () {} 
       
    public Staff (String firstName, String lastName, String cpr, String type, 
                  String[] address, int phoneNr, String password, int hours, 
@@ -18,7 +20,31 @@ public class Staff extends User implements UserManagement
    
       //Methods
       
-      
+      public String staffRepportToString () 
+   {
+      return "\tHours a week          : " + hours + 
+             "\n\tSalary pr hour      : " + salary +
+             "\n\tVacation days pr/y  : " + vacation + 
+             "\n\tMonthly salary      : " + getSalaryMonth();
+   }
+   
+   @Override
+   public void getUserInformation(String ID)
+   {
+   
+   }
+   @Override
+   public void printStaffReport(User user)
+   {
+      System.out.println(ID + " " + accessLevel + " " + hours + " " + salary + " " + vacation);
+   }
+   
+   public String fileFormatString ()
+   {
+      return firstName + " " + lastName + " " + cpr + " " + type + " " + address[0] + " " +
+             address[1] + " " + address[2] + " " + phoneNr + " " + password + " " + ID + " " + 
+             accessLevel + " " + hours + " " + salary + " " + vacation; 
+   } 
    
       //Setters
    
@@ -63,23 +89,9 @@ public class Staff extends User implements UserManagement
    {
       return vacation;
    }
-      
-   public String staffRepportToString () 
-   {
-      return "\tHours a week          : " + hours + 
-             "\n\tSalary pr hour      : " + salary +
-             "\n\tVacation days pr/y  : " + vacation + 
-             "\n\tMonthly salary      : " + getSalaryMonth();
-   }
    
-   @Override
-   public void getUserInformation(String ID)
+   public String getID () 
    {
-   
-   }
-   @Override
-   public void printStaffReport(User user)
-   {
-   
+      return "S" + accessLevel + IDCounter;
    }
 }

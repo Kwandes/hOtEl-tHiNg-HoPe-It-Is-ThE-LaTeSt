@@ -4,9 +4,11 @@ public class Guest extends User implements UserManagement
    private double moneySpent;
    
       //Constructor
+   
+   public Guest () {} 
       
    public Guest (String firstName, String lastName, String cpr, String type, 
-                 String[] adress, String phoneNr, String password, int guestDays, double moneySpent)
+                 String[] adress, String phoneNr, String password, int IDCounter)
    {
       this.firstName = firstName;
       this.lastName = lastName;
@@ -15,9 +17,37 @@ public class Guest extends User implements UserManagement
       this.address = address;
       this.phoneNr = phoneNr;
       this.password = password;
-      this.guestDays = guestDays;
-      this.moneySpent = moneySpent;
+      this.guestDays = 0;
+      this.moneySpent = 0.0;
+      this.ID = "G" + super.getAccessLevel() + IDCounter;
    }  
+   
+         //Methods
+   
+   public String guestRepportToString ()
+   {
+      return "Total days at hotel         : " + guestDays +
+             "\nTotal amount of money spent : " + moneySpent;
+   }
+   
+   @Override
+   public void getUserInformation(String ID)
+   {
+   
+   }
+   
+   @Override
+   public void printGuestReport(User user)
+   {
+      System.out.println( ID + " " + accessLevel + " " + guestDays + " " + moneySpent );
+   }
+   
+   public String fileFormatString ()
+   {
+      return firstName + " " + lastName + " " + cpr + " " + type + " " + address[0] + " " +
+             address[1] + " " + address[2] + " " + phoneNr + " " + password + " " + ID + " " + accessLevel
+             + " " + guestDays + " " + moneySpent;
+   }
    
       //AddToMethods
    
@@ -43,6 +73,11 @@ public class Guest extends User implements UserManagement
       this.moneySpent = 0.0;
    }
    
+   public void setID (String ID)
+   {
+      this.ID = ID;
+   }
+   
       //Getters
    
    public int getGuestDays () 
@@ -55,22 +90,8 @@ public class Guest extends User implements UserManagement
       return moneySpent;
    }
    
-      //Methods
-   
-   public String guestRepportToString ()
+   public String getID () 
    {
-      return "Total days at hotel         : " + guestDays +
-             "\nTotal amount of money spent : " + moneySpent;
-   }
-   
-   @Override
-   public void getUserInformation(String ID)
-   {
-   
-   }
-   @Override
-   public void printStaffReport(User user)
-   {
-   
+      return ID;
    }
 }

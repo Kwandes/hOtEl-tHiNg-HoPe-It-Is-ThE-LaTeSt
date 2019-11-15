@@ -15,13 +15,15 @@ public class User
    protected String password;
    protected String ID;           // Type + 2 last digits from PhoneNr + initals ( first letter of each name)
    protected int accessLevel;     // 0 - 6
+   protected int IDCounter;
    protected final String[] TYPE = { "Guest", "Cleaner", "Receptionist", "Accountant", "Director" };
    
       //Constructor 
    
    public User () {}
    
-   public User (String firstName, String lastName, String cpr, String type, String[] address, String phoneNr, String password) 
+   public User (String firstName, String lastName, String cpr, String type, 
+                String[] address, String phoneNr, String password, int IDCounter ) 
    {
       this.firstName = firstName;
       this.lastName = lastName;
@@ -30,6 +32,8 @@ public class User
       this.address = address;
       this.phoneNr = phoneNr;
       this.password = password;
+      this.IDCounter = IDCounter;
+      this.ID = accessLevel + IDCounter;
    }
    
       //Methods
@@ -77,42 +81,6 @@ public class User
       return firstName + " " + lastName + " " + cpr + " " + type + " " + add(address) + " " + phoneNr;
    }
    
-/*   public void createUser () 
-   {
-      System.out.print("First name : ");
-      firstName = in.next();
-      
-      System.out.print("Last name  : ");
-      lastName = in.next();
-      
-      System.out.print("Members cpr Nr : ");
-      cpr = in.next();
-      
-      System.out.print("Address - Street name : ");
-      address[0] = in.nextLine();
-      
-      System.out.print("Address - City : ");
-      address[1] = in.nextLine();
-      
-      System.out.print("Address - Postcode : ");
-      address[2] = in.nextLine();
-      
-      System.out.print("Phonenumber : ");
-      phoneNr = in.nextInt();
-            
-      do {
-         System.out.print("Create password : ");
-         String pass1 = in.next();
-         System.out.print("Verify password : ");
-         String pass2 = in.next();
-         if ( !pass1.equals(pass2) ) 
-         {
-            System.out.println("The password didnt match, Try again");
-         }
-      } while ( !pass1.equals(pass2) );
-         
-   }   */
-      
       //Setters
    
    public void setFirstName (String firstName) 
@@ -180,5 +148,10 @@ public class User
    public String getPassword () 
    {
       return password;
+   }
+   
+   public String getID () 
+   {
+      return accessLevel + IDCounter;
    }
 }
