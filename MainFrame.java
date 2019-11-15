@@ -8,10 +8,12 @@ import java.io.FileInputStream;
 
 public class MainFrame // MF or motherFucker for short
 {
-   private ArrayList<User> userList;
-   private ArrayList<Room> roomList;
    private ArrayList<Booking> bookingList;
    private ArrayList<Booking> archivedBookingList;
+   private ArrayList<Room> roomList;
+   private ArrayList<Guest> guestList;
+   private ArrayList<Staff> staffList;
+   
    private FileManagement file;
    private boolean printLogsToConsole;
    private Properties config;
@@ -48,13 +50,17 @@ public class MainFrame // MF or motherFucker for short
          
          ////////// Get config and init arrays //////////
          // get config with filepaths etc
-         // populate userList
-         userList = new ArrayList<User>();
-         //bookingList = new ArrayList<Booking>();
-         // populate roomList
-         // populate bookingList;
-         //ArrayList<String> array = new ArrayList<String>();
-         //array.get(1);   // Example invalid array for exception logging debug
+         
+         // load ALL arrays from file
+         Information info = new Information(true, true, true, true, true);
+         info = file.loadData(info);
+         
+         bookingList = info.bookingList;
+         archivedBookingList = info.archivedBookingList;
+         roomList = info.roomList;
+         guestList = info.guestList;
+         staffList = info.staffList;
+         
          createLog("ArrayList setup complete", Log.Type.INFO);
          ////////// Run CLI/UI/whatever we called it //////////
          // create UI object and run UI
@@ -77,7 +83,7 @@ public class MainFrame // MF or motherFucker for short
    {  
       try
       {
-         for(int i = 0; i < userList.size(); i++)
+         for(int i = 0; i < staffList.size(); i++)
          {
 //             if(userList.get(i).getPhoneNumber().equals(phoneNumber) && userList.get(i).getPassword().equals(password))
 //             {
@@ -164,25 +170,6 @@ public class MainFrame // MF or motherFucker for short
       }
       catch (Exception e) {  createLog(e, Log.Type.ERROR); }
       return null;
-   }   
-   
-   public boolean removeBooking(int bookingID)
-   {
-      try
-      {
-         for(int i = 0; i < bookingList.size(); i++)
-         {
-//             if(bookingList.get(i).getBookingID() == bookingID)
-//             {
-//                archivedBookingList.add(bookingList.get(i));
-//                bookingList.remove(i);
-//                createLog("Booking " + bookingID + "has been removed", Log.Type.INFO);
-//                return true;
-//             }
-         }
-      }
-      catch (Exception e) {  createLog(e, Log.Type.ERROR); }
-      return false;
    }
    
    public ArrayList<Booking> getUsersBookings(int userID)
@@ -228,16 +215,23 @@ public class MainFrame // MF or motherFucker for short
 //       userList = file.loadUsersFromFile("userList path");
    }
    
-   public ArrayList<User> getUserList()
+   public ArrayList<Guest> getGuestList()
    {
-      return userList;
+      return guestList;
+   }
+   
+   public ArrayList<Staff> getStaffList()
+   {
+      return staffList;
    }
    
    ////////// Room management //////////
    // contact interface : populate array
-   public void setRoomList()
+   public void setRoomList(ArrayList<Room> roomList)
    {
-//       roomList = file.loadRoomsFromFile("userList path");
+       this.roomList = roomList;
+       file.saveData(new Information(null, null, roomList, null, null));
+       createLog("RoomList modified and saved", Log.Type.INFO);
    }
    
    public ArrayList<Room> getRoomList()
@@ -247,9 +241,9 @@ public class MainFrame // MF or motherFucker for short
    
    ////////// Booking management //////////
    // contact interface : populate array
-   public void steBookingList()
+   public void setBookingList()
    {
-//       bookingList = file.loadBookingsFromFile("userList path");
+       bookingList = file.loadData(new Information(true, false, false, false, false)).bookingList;
    }
    
    public ArrayList<Booking> getBookingList()
@@ -279,10 +273,10 @@ public class MainFrame // MF or motherFucker for short
    }
    
    ////////// testing purpose code //////////
-   public void addUser(User user)
-   {
-      userList.add(user);
-   }
+//    public void addUser(User user)
+//    {
+//       userList.add(user);
+//    }
    
    ////////// User Interface //////////
    public void openCLI()
@@ -326,6 +320,35 @@ public class MainFrame // MF or motherFucker for short
       {
          createLog(e, Log.Type.ERROR);
          createLog("User UI failed to create", Log.Type.WARNING);
+      }
+   }
+   
+   ////////// Array Element Removal //////////
+   
+   public void removeBooking(int bookingID)
+   {
+      for (int i = 0 ; i < bookingList.size(); i++)
+      {
+         if (bookingList.get(i).getBookingID() == bookingID)
+         {
+            bookingList.remove(i);
+            file.saveData(new Information(bookingList, null, null, null, null));
+            createLog("Booking " + bookingID + "has been removed", Log.Type.INFO);
+         }
+      }
+   }
+   
+   public void archiveBooking(int bookingID)
+   {
+      for (int i = 0 ; i < bookingList.size(); i++)
+      {
+         if (bookingList.get(i).getBookingID() == bookingID)
+         {
+            archivedBookingList.add(bookingList.get(i));
+            bookingList.remove(i);
+            file.saveData(new Information(bookingList, archivedBookingList, null, null, null));
+            createLog("Booking " + bookingID + "has been archived", Log.Type.INFO);
+         }
       }
    }
    
