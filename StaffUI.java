@@ -113,7 +113,7 @@ public class StaffUI extends CLI
    {
       //this.screenNumber = 1;
       creationTemplate("Guest");
-      Guest created = new Guest(firstName, lastName, cpr, "GU", address, phoneNumber, password, 0);
+      Guest created = new Guest(firstName, lastName, cpr, address, phoneNumber, password, 0);
       System.out.println();
       returnQuit(); 
    }

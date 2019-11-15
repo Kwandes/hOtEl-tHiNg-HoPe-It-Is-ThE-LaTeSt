@@ -103,7 +103,7 @@ public class LoginUI extends CLI
       arr[0] = "Yeet";
       arr[1] = "Yote";
       arr[2] = "yoten";
-      user = new Guest ("Faisal", "Boolyan", "1234561234", "GU", arr, "12345678", "passwd", 0, 0.0);   // Double check the contructors, right now IDCounter is passed for a guestDays parameter in Guest
+      user = new Guest ("Faisal", "Boolyan", "123456-1234", arr, "12345678", "passwd", 0);   // Double check the contructors, right now IDCounter is passed for a guestDays parameter in Guest
       
       this.screenNumber = 99; // Exit loginUI
    }
@@ -177,8 +177,8 @@ public class LoginUI extends CLI
       print();
       password = pass1;
       
-      Guest Teo = new Guest (firstName, lastName, cpr, "GU", address, phoneNr, password, IDCounter, 1.0);   // Double check the contructors, right now IDCounter is passed for a guestDays parameter in Guest
-      System.out.println("\n" + Teo.toString());
+      //Guest Teo = new Guest (firstName, lastName, cpr, address, phoneNr, password, IDCounter, 1.0);   // Double check the contructors, right now IDCounter is passed for a guestDays parameter in Guest
+      //System.out.println("\n" + Teo.toString());
    }
    
    public static String check (String question, int min, int max)
