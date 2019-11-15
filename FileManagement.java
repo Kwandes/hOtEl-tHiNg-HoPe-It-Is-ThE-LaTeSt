@@ -106,6 +106,7 @@ public class FileManagement
       }
       catch (Exception e)
       {
+         mf.createLog("Loading Data not finished", Log.Type.WARNING);
          mf.createLog(e, Log.Type.ERROR);
       }
       

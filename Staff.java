@@ -15,7 +15,7 @@ public class Staff extends User implements UserManagement
       this.cpr = cpr;
       this.type = type;
       this.address = address;
-      this.phoneNr = phoneNr;
+      this.phoneNumber = phoneNr;
       this.password = password;
       this.hours = hours;
       this.salary = salary;
@@ -33,7 +33,7 @@ public class Staff extends User implements UserManagement
       this.cpr = cpr;
       this.type = type;
       this.address = address;
-      this.phoneNr = phoneNr;
+      this.phoneNumber = phoneNr;
       this.password = password;
       this.hours = hours;
       this.salary = salary;

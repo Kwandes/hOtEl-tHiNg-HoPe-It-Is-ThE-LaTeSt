@@ -13,7 +13,7 @@ public class Guest extends User implements UserManagement
       this.cpr = cpr;
       this.type = type;
       this.address = address;
-      this.phoneNr = phoneNr;
+      this.phoneNumber = phoneNr;
       this.password = password;
       this.guestDays = guestDays;
       this.moneySpent = moneySpent;

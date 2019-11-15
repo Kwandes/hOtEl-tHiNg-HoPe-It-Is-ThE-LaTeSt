@@ -11,26 +11,12 @@ public class User
    protected String cpr;          // maybe change for "String" depending on the '-'
    public String type;         // GU = guest, DI = Director etc.
    protected String[] address = new String[3]; //0 = Street name, 1 = city, 2 = postcode
-   protected String phoneNr;         // max 8 digits.
+   protected String phoneNumber;         // max 8 digits.
    protected String password;
    protected String ID;           // Type + 2 last digits from PhoneNr + initals ( first letter of each name)
    protected int accessLevel;     // 0 - 6
    protected final String[] TYPE = { "Guest", "Cleaner", "Receptionist", "Accountant", "Director" };
    
-      //Constructor 
-   
-   public User () {}
-   
-   public User (String firstName, String lastName, String cpr, String type, String[] address, String phoneNr, String password) 
-   {
-      this.firstName = firstName;
-      this.lastName = lastName;
-      this.cpr = cpr;
-      this.type = type;
-      this.address = address;
-      this.phoneNr = phoneNr;
-      this.password = password;
-   }
    
       //Methods
       
@@ -69,49 +55,13 @@ public class User
              "\n\tCpr          : " + cpr + 
              "\n\tUser status  : " + getType(type) +
              "\n\tAddress      : " + add(address) + 
-             "\n\tPhonenumber  : " + phoneNr;
+             "\n\tPhonenumber  : " + phoneNumber;
    }
    
    public String fileFormatString () 
    {
-      return firstName + " " + lastName + " " + cpr + " " + type + " " + add(address) + " " + phoneNr;
+      return firstName + " " + lastName + " " + cpr + " " + type + " " + add(address) + " " + phoneNumber;
    }
-   
-/*   public void createUser () 
-   {
-      System.out.print("First name : ");
-      firstName = in.next();
-      
-      System.out.print("Last name  : ");
-      lastName = in.next();
-      
-      System.out.print("Members cpr Nr : ");
-      cpr = in.next();
-      
-      System.out.print("Address - Street name : ");
-      address[0] = in.nextLine();
-      
-      System.out.print("Address - City : ");
-      address[1] = in.nextLine();
-      
-      System.out.print("Address - Postcode : ");
-      address[2] = in.nextLine();
-      
-      System.out.print("Phonenumber : ");
-      phoneNr = in.nextInt();
-            
-      do {
-         System.out.print("Create password : ");
-         String pass1 = in.next();
-         System.out.print("Verify password : ");
-         String pass2 = in.next();
-         if ( !pass1.equals(pass2) ) 
-         {
-            System.out.println("The password didnt match, Try again");
-         }
-      } while ( !pass1.equals(pass2) );
-         
-   }   */
       
       //Setters
    
@@ -172,13 +122,18 @@ public class User
       return address;
    }
    
-   public String getPhoneNr () 
+   public String getPhoneNumber () 
    {
-      return phoneNr;
+      return phoneNumber;
    }
    
    public String getPassword () 
    {
       return password;
+   }
+   
+   public String getID () 
+   {
+      return ID;
    }
 }
