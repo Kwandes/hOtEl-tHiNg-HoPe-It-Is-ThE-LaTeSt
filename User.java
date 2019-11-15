@@ -7,7 +7,7 @@ public class User
    private String cpr;            // maybe change for "String" depending on the '-'
    public String type;            // GU = guest, DI = Director etc.
    private String[] address = new String[3]; //0 = Street name, 1 = city, 2 = postcode
-   private long phoneNr;          // max 8 digits.
+   private String phoneNr;          // max 8 digits.
    private String password;
    protected String ID;           // Type + 2 last digits from PhoneNr + initals ( first letter of each name)
    private int accessLevel;       // 0 - 6
@@ -18,7 +18,7 @@ public class User
    public User () {}
      
    public User (String firstName, String lastName, String cpr, 
-                String type, String[] address, long phoneNr, String password, int IDCounter) 
+                String type, String[] address, String phoneNr, String password, int IDCounter) 
    {
       this.firstName = firstName;
       this.lastName = lastName;
@@ -114,7 +114,7 @@ public class User
       this.address = address;
    }
    
-   public void setPhoneNr (long phoneNr)
+   public void setPhoneNr (String phoneNr)
    {
       this.phoneNr = phoneNr;
    }
@@ -161,7 +161,7 @@ public class User
       return address;
    }
    
-   public long getPhoneNr () 
+   public String getPhoneNr () 
    {
       return phoneNr;
    }

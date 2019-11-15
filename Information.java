@@ -43,7 +43,6 @@ public class Information
       {
          info.fm.saveRooms ( info.roomList );
       } 
-      /* Guest & User not fully implemented yet in FM
        if ( info.guestList != null ) 
       {
          info.fm.saveGuests ( info.guestList );
@@ -52,7 +51,6 @@ public class Information
       {
          info.fm.saveStaff ( info.staffList );
       } 
-      */
    }
    
    public static void loadAll ( Information info, boolean isArchived )
@@ -60,10 +58,7 @@ public class Information
    {
       info.bookingList = info.fm.loadBookings ( isArchived );
       info.roomList = info.fm.loadRooms ();
-      /* Guest & User not fully implemented yet in FM
       info.guestList = info.fm.loadGuests ();
       info.staffList = info.fm.loadStaff ();
-      */
-
    }
 }
