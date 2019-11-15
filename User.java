@@ -1,27 +1,24 @@
-import java.io.*;
-import java.util.*;
-
 public class User 
 {   
       //Attributes 
    
-   protected Scanner in = new Scanner(System.in);
-   protected String firstName;
-   protected String lastName;
-   protected String cpr;          // maybe change for "String" depending on the '-'
-   public String type;         // GU = guest, DI = Director etc.
-   protected String[] address = new String[3]; //0 = Street name, 1 = city, 2 = postcode
-   protected String phoneNr;         // max 8 digits.
-   protected String password;
+   private String firstName;
+   private String lastName;
+   private String cpr;            // maybe change for "String" depending on the '-'
+   public String type;            // GU = guest, DI = Director etc.
+   private String[] address = new String[3]; //0 = Street name, 1 = city, 2 = postcode
+   private long phoneNr;          // max 8 digits.
+   private String password;
    protected String ID;           // Type + 2 last digits from PhoneNr + initals ( first letter of each name)
-   protected int accessLevel;     // 0 - 6
-   protected final String[] TYPE = { "Guest", "Cleaner", "Receptionist", "Accountant", "Director" };
+   private int accessLevel;       // 0 - 6
+   private final String[] TYPE = { "Guest", "Cleaner", "Receptionist", "Accountant", "Director" };
    
       //Constructor 
    
    public User () {}
-   
-   public User (String firstName, String lastName, String cpr, String type, String[] address, String phoneNr, String password) 
+     
+   public User (String firstName, String lastName, String cpr, 
+                String type, String[] address, long phoneNr, String password, int IDCounter) 
    {
       this.firstName = firstName;
       this.lastName = lastName;
@@ -30,6 +27,8 @@ public class User
       this.address = address;
       this.phoneNr = phoneNr;
       this.password = password;
+      this.accessLevel = typeNr(type);
+      this.ID = type + IDCounter;
    }
    
       //Methods
@@ -65,7 +64,8 @@ public class User
    
    public String toString () 
    {
-      return "\tFull name    : "   + firstName + " " + lastName + 
+      return "\tUser ID      : "   + ID + 
+             "\n\tFull name    : " + firstName + " " + lastName + 
              "\n\tCpr          : " + cpr + 
              "\n\tUser status  : " + getType(type) +
              "\n\tAddress      : " + add(address) + 
@@ -74,46 +74,20 @@ public class User
    
    public String fileFormatString () 
    {
-      return firstName + " " + lastName + " " + cpr + " " + type + " " + add(address) + " " + phoneNr;
+      return ID + " " + firstName + " " + lastName + " " + cpr + " " + type + " " + accessLevel + " " + add(address) + " " + phoneNr;
    }
    
-/*   public void createUser () 
-   {
-      System.out.print("First name : ");
-      firstName = in.next();
-      
-      System.out.print("Last name  : ");
-      lastName = in.next();
-      
-      System.out.print("Members cpr Nr : ");
-      cpr = in.next();
-      
-      System.out.print("Address - Street name : ");
-      address[0] = in.nextLine();
-      
-      System.out.print("Address - City : ");
-      address[1] = in.nextLine();
-      
-      System.out.print("Address - Postcode : ");
-      address[2] = in.nextLine();
-      
-      System.out.print("Phonenumber : ");
-      phoneNr = in.nextInt();
-            
-      do {
-         System.out.print("Create password : ");
-         String pass1 = in.next();
-         System.out.print("Verify password : ");
-         String pass2 = in.next();
-         if ( !pass1.equals(pass2) ) 
-         {
-            System.out.println("The password didnt match, Try again");
-         }
-      } while ( !pass1.equals(pass2) );
-         
-   }   */
-      
       //Setters
+   
+   public void setID (String ID) 
+   {
+      this.ID = ID;
+   }
+      
+   public void setAccessLevel (int accessLevel) 
+   {
+      this.accessLevel = accessLevel;
+   }
    
    public void setFirstName (String firstName) 
    {
@@ -140,12 +114,27 @@ public class User
       this.address = address;
    }
    
+   public void setPhoneNr (long phoneNr)
+   {
+      this.phoneNr = phoneNr;
+   }
+   
    public void setPassword (String password) 
    {
       this.password = password;
    }
    
       //Getters
+   
+   public String getID () 
+   {
+      return ID;
+   }
+   
+   public int getAccessLevel () 
+   {
+      return accessLevel;
+   }
    
    public String getFirstName () 
    {
@@ -172,7 +161,7 @@ public class User
       return address;
    }
    
-   public String getPhoneNr () 
+   public long getPhoneNr () 
    {
       return phoneNr;
    }
