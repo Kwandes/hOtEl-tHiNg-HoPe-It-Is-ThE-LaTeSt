@@ -7,11 +7,11 @@ public class Main
 //       UnitTests test = new UnitTests();
 //       test.runTests(false);
    
-      MainFrame hotel = new MainFrame(true);
-      hotel.init();
-      if(hotel.getInitStatus())
-      {
-         hotel.openCLI();
-      }
+//       MainFrame hotel = new MainFrame(true);
+//       hotel.init();
+//       if(hotel.getInitStatus())
+//       {
+//          hotel.openCLI();
+//       }
    }
 }
