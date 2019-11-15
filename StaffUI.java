@@ -105,7 +105,7 @@ public class StaffUI extends CLI
       print("How many vacation days will " + firstName + "have yearly?");
       vacation = intCheck();
       
-      Staff created = new Staff( firstName, lastName, cpr, "ST", address, phoneNumber, password, hours, salary, vacation);
+      Staff created = new Staff( firstName, lastName, cpr, "ST", address, phoneNumber, password, 0, hours, salary, vacation);
       returnQuit();
    }
 
@@ -113,7 +113,7 @@ public class StaffUI extends CLI
    {
       //this.screenNumber = 1;
       creationTemplate("Guest");
-      Guest created = new Guest(firstName, lastName, cpr, "GU", address, phoneNumber, password, 0, 0.0);
+      Guest created = new Guest(firstName, lastName, cpr, "GU", address, phoneNumber, password, 0);
       System.out.println();
       returnQuit(); 
    }
