@@ -3,23 +3,29 @@ import java.io.*;
 
 public class LoginUI extends CLI
 {   
-   private static int size = 100;
-   private static String[] error = { addText("Too long", size), addText("Too short", size), 
+   private  int size = 100;
+   private  String[] error = { addText("Too long", size), addText("Too short", size), 
                                      addText("Cannot contain spaces", size), addText("Only numbers", size), 
                                      addText("Only letters", size), addText("Invalid answer", size), 
                                      addText("Cannot contain numbers", size), addText("The password didnt match, Try again", size)};
-   private static Scanner in = new Scanner(System.in);
-   private static Scanner in2 = new Scanner(System.in); //bug issue with the scanners, had to make an extra.
-   private static int IDCounter = 0;
+   private  Scanner in = new Scanner(System.in);
+   private  Scanner in2 = new Scanner(System.in); //bug issue with the scanners, had to make an extra.
+   private  int IDCounter = 0;
    
-   private Guest user;
+   private Guest guest;
+   private Staff staff;
+   private MainFrame mf;
    
-   public LoginUI(String title)
+   public LoginUI(String title, MainFrame mfRef)
    {
       this.title = title;
       this.screenNumber = 1;  // MainMenu
       this.seperator = print(size); 
       this.running = true;
+      this.mf = mfRef;
+      
+      guest = null;
+      staff = null;
    }
    
    public void display()
@@ -68,10 +74,10 @@ public class LoginUI extends CLI
             this.screenNumber = 2;
             break;
          case "2":
-            this.screenNumber = 2;
+            this.screenNumber = 3;
             break;
          case "3":
-            this.screenNumber = 3;
+            this.screenNumber = 99;
             break;
          default:
             this.screenNumber = 1;
@@ -103,12 +109,14 @@ public class LoginUI extends CLI
       arr[0] = "Yeet";
       arr[1] = "Yote";
       arr[2] = "yoten";
-      user = new Guest ("Faisal", "Boolyan", "123456-1234", arr, "12345678", "passwd", 0);   // Double check the contructors, right now IDCounter is passed for a guestDays parameter in Guest
+      this.guest = new Guest ("Faisal", "Boolyan", "1234561234", "GU", arr, "12345678", "passwd", 0, 0.0);   // Double check the contructors, right now IDCounter is passed for a guestDays parameter in Guest
+      this.staff = null;
+      // Implement proper user creation based on array gotten from MF
       
       this.screenNumber = 99; // Exit loginUI
    }
    
-   public static void registerGuest () 
+   public  void registerGuest () 
    {
       String firstName;
       String lastName;
@@ -177,11 +185,11 @@ public class LoginUI extends CLI
       print();
       password = pass1;
       
-      //Guest Teo = new Guest (firstName, lastName, cpr, address, phoneNr, password, IDCounter, 1.0);   // Double check the contructors, right now IDCounter is passed for a guestDays parameter in Guest
+      this.guest = new Guest (firstName, lastName, cpr, "GU", address, phoneNr, password, IDCounter, 1.0);   // Double check the contructors, right now IDCounter is passed for a guestDays parameter in Guest
       //System.out.println("\n" + Teo.toString());
    }
    
-   public static String check (String question, int min, int max)
+   public  String check (String question, int min, int max)
    {
       String input = null;
       boolean isValid = false;
@@ -218,7 +226,7 @@ public class LoginUI extends CLI
       return input;
    }
    
-   public static String checkAddress () 
+   public  String checkAddress () 
    {
       String input = "";
       boolean isValid = false;
@@ -267,7 +275,7 @@ public class LoginUI extends CLI
       return inputWith;
    }
    
-   public static String checkName (int commentNumber) 
+   public  String checkName (int commentNumber) 
    {
       String input = "";
       boolean isValid = false;
@@ -356,7 +364,7 @@ public class LoginUI extends CLI
       return inputWith;
    }
    
-   public static String checkCpr () 
+   public  String checkCpr () 
    {
       String input = "";
       boolean isValid = false;
@@ -410,7 +418,7 @@ public class LoginUI extends CLI
       return input;
    }
    
-   public static void printText (String text, int numberOfSpaces) 
+   public  void printText (String text, int numberOfSpaces) 
    {
       int out = (numberOfSpaces - text.length()) / 2;
       for(int i = 0; i < out; i++ ) {
@@ -419,7 +427,7 @@ public class LoginUI extends CLI
       System.out.println(text);
    }
    
-   public static String addText (String text, int numberOfSpaces) 
+   public  String addText (String text, int numberOfSpaces) 
    {
       String line = "";
       int out = (numberOfSpaces - text.length()) / 2;
@@ -430,7 +438,7 @@ public class LoginUI extends CLI
       return line;
    }
    
-   public static String print (int numberOfChar) 
+   public  String print (int numberOfChar) 
    {
       String fullString = "";
       for(int i = 0; i < numberOfChar; i++ ) {
@@ -439,12 +447,12 @@ public class LoginUI extends CLI
       return fullString;
    }
    
-   public static void print () 
+   public  void print () 
    {
       System.out.println(print(size));
    }
    
-   public static void errorMessage (int message) 
+   public  void errorMessage (int message) 
    {
       print();
       System.out.println(error[message]);
@@ -454,12 +462,18 @@ public class LoginUI extends CLI
    public void exit()
    {
       this.running = false;
+      //System.exit(0);
    }
    
    ////////// Getters and Setters //////////
    
-   public Guest getUser()
+   public Guest getGuest()
    {
-      return this.user;
+      return this.guest;
+   }
+   
+   public Staff getStaff()
+   {
+      return this.staff;
    }
 }

@@ -1,24 +1,27 @@
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.io.*;
+import java.util.Properties;
 
 public class FileManagement
 {
-
       // Attributes
    
    private String filePath;
+   private MainFrame mf;
+   private Information info;
       
       // Constructors
       
-   public FileManagement () 
+   public FileManagement (MainFrame mfRef) 
    {
-   
+      this.mf = mfRef;
    }
    
-   public FileManagement ( String filePath ) 
+   public FileManagement (MainFrame mfRef, String filePath) 
    {
       this.filePath = filePath;
+      this.mf = mfRef;
    }
    
       // Methods
@@ -54,7 +57,6 @@ public class FileManagement
       
       if(outputToConsole) System.out.println(log);
    }
-      
       // Loaders
       
    /*
@@ -63,6 +65,95 @@ public class FileManagement
          - In the case of the bookings, they can be either active or archived and the loadBookings
            method takes in a boolean parameter 'isArchived' to help decide where to load the array from.
    */
+   
+   public Information loadData(Information info)
+   {
+      try
+      {
+         if(info.loadBookings)
+         {
+            mf.createLog("Loading BookingList", Log.Type.INFO);
+            info.bookingList = loadBookings(false);
+         }
+         else info.bookingList = null;
+         
+         if(info.loadArchive)
+         {
+            mf.createLog("Loading Archived Bookings", Log.Type.INFO);
+            info.archivedBookingList = loadBookings(true);
+         }
+         else info.archivedBookingList = null;
+         
+         if(info.loadRooms)
+         {
+            mf.createLog("Loading RoomList", Log.Type.INFO);
+            info.roomList = loadRooms();
+         }
+         else info.roomList = null;
+         
+         if(info.loadGuests)
+         {
+            mf.createLog("Loading GuestList", Log.Type.INFO);
+            info.guestList = loadGuests();
+         }
+         else info.guestList = null;
+         
+         if(info.loadStaff)
+         {
+            mf.createLog("Loading StaffList", Log.Type.INFO);
+            info.staffList = loadStaff();
+         }
+         else info.bookingList = null;
+      }
+      catch (Exception e)
+      {
+         mf.createLog("Loading Data not finished", Log.Type.WARNING);
+         mf.createLog(e, Log.Type.ERROR);
+      }
+      
+      return info;
+   }
+   
+   public void saveData(Information info)
+   {
+      try
+      {
+         if(info.bookingList != null)
+         {
+            mf.createLog("Saving BookingList", Log.Type.INFO);
+            saveBookings(info.bookingList, false);
+         }
+         
+         if(info.archivedBookingList != null)
+         {
+            mf.createLog("Saving archived BookingList", Log.Type.INFO);
+            saveBookings(info.archivedBookingList, true);
+         }
+         
+         if(info.roomList != null)
+         {
+            mf.createLog("Saving RoomList", Log.Type.INFO);
+            saveRooms(info.roomList);
+         }
+         
+         if(info.loadGuests)
+         {
+            mf.createLog("Saving GuestList", Log.Type.INFO);
+            saveGuests(info.guestList);
+         }
+         
+         if(info.loadStaff)
+         {
+            mf.createLog("Saving StaffList", Log.Type.INFO);
+            saveStaff(info.staffList);
+         }
+      }
+      catch (Exception e)
+      {
+         mf.createLog(e, Log.Type.ERROR);
+      }
+   }
+   
      
       // Rooms
    public ArrayList<Room> loadRooms () 
@@ -290,5 +381,15 @@ public class FileManagement
    public void setFilePath ( String filePath ) 
    {
       this.filePath = filePath;
-   }         
+   }
+   
+   // Do your path assigment here or something. This method is called from MF during Init
+   public void setFilePaths(Properties config)
+   {
+      /*
+      Example code:
+      this.bookingListPath = config.getProperty("bookingListPath");
+      this.archivedBookingListPath = config.getProperty("archivedBookingListPath", "files/archive.txt"); // second parameter is a default value in case the property is missing
+      */
+   }        
 }

@@ -14,7 +14,9 @@ public class GuestUI extends CLI
    private Guest user;
    private String guestID = user.getGuestID();
    
-   public GuestUI(Guest user, String title) throws Exception
+   private MainFrame mf;
+   
+   public GuestUI(Guest user, String title, MainFrame mfRef) throws Exception
    {
       this.title = title;
       this.screenNumber = 2;
@@ -22,6 +24,7 @@ public class GuestUI extends CLI
       this.userAccessLevel = 0; // Cannot be more than 0 for security reasons
       this.seperator = print(size); 
       this.running = true;
+      this.mf = mfRef;
    }
    
    public int guestMenu(String guestID) 
@@ -35,6 +38,9 @@ public class GuestUI extends CLI
       int choice = Integer.parseInt(check("\tPlease select 1 - 5 : ", 0, 6));
       return choice;
    }
+   
+   public GuestUI()
+   {}
    
    public void display()
    {

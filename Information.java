@@ -1,64 +1,44 @@
 import java.util.ArrayList;
-import java.util.Scanner;
-import java.io.*;
 
 public class Information
 {
-      // Attributes 
-   public ArrayList<Booking> bookingList = new ArrayList<Booking>();
-   public ArrayList<Room> roomList = new ArrayList<Room>();
-   public ArrayList<Guest> guestList = new ArrayList<Guest>();
-   public ArrayList<Staff> staffList = new ArrayList<Staff>();
-   private FileManagement fm;
+   public ArrayList<Booking> bookingList;
+   public ArrayList<Booking> archivedBookingList;
+   public ArrayList<Room> roomList;
+   public ArrayList<Guest> guestList;
+   public ArrayList<Staff> staffList;
    
-   //private Property prop;
+   public boolean loadBookings = false;
+   public boolean loadArchive = false;
+   public boolean loadRooms = false;
+   public boolean loadGuests = false;
+   public boolean loadStaff = false;
    
-      // Constructors
-   public Information ()
+   // Constructor for saving data
+   public Information( ArrayList<Booking> bookingList,
+                            ArrayList<Booking> archivedBookingList,
+                            ArrayList<Room> roomList,
+                            ArrayList<Guest> guestList,
+                            ArrayList<Staff> staffList )
    {
-      
+       this.bookingList = bookingList;
+       this.archivedBookingList = archivedBookingList;
+       this.roomList = roomList;
+       this.guestList = guestList;
+       this.staffList =staffList;
    }
    
-   public Information ( FileManagement fm )
+   // Constructor for loading data from file
+   public Information( boolean loadBookings,
+                           boolean loadArchive,
+                           boolean loadRooms,
+                           boolean loadGuests,
+                           boolean loadStaff )
    {
-      this.fm = fm;
-   }
-   /*
-   public Information ( FileManagement fm, Property prop )
-   {
-      this.fm = fm;
-      this.prop = prop
-   }*/
-   
-      // Methods
-   
-   public static void saveAll ( Information info, boolean isArchived )
-                     throws FileNotFoundException
-   {
-      if ( info.bookingList != null ) 
-      {
-         info.fm.saveBookings ( info.bookingList, isArchived );
-      } 
-      if ( info.roomList != null ) 
-      {
-         info.fm.saveRooms ( info.roomList );
-      } 
-       if ( info.guestList != null ) 
-      {
-         info.fm.saveGuests ( info.guestList );
-      } 
-      if ( info.staffList != null ) 
-      {
-         info.fm.saveStaff ( info.staffList );
-      } 
-   }
-   
-   public static void loadAll ( Information info, boolean isArchived )
-                     throws FileNotFoundException
-   {
-      info.bookingList = info.fm.loadBookings ( isArchived );
-      info.roomList = info.fm.loadRooms ();
-      info.guestList = info.fm.loadGuests ();
-      info.staffList = info.fm.loadStaff ();
+      this.loadBookings = loadBookings;
+      this.loadArchive = loadArchive;
+      this.loadRooms = loadRooms;
+      this.loadGuests = loadGuests;
+      this.loadStaff = loadStaff;
    }
 }
