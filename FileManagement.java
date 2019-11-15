@@ -1,6 +1,7 @@
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.io.*;
+import java.util.Properties;
 
 public class FileManagement
 {
@@ -366,5 +367,15 @@ public class FileManagement
    public void setFilePath ( String filePath ) 
    {
       this.filePath = filePath;
-   }         
+   }
+   
+   // Do your path assigment here or something. This method is called from MF during Init
+   public void setFilePaths(Properties config)
+   {
+      /*
+      Example code:
+      this.bookingListPath = config.getProperty("bookingListPath");
+      this.archivedBookingListPath = config.getProperty("archivedBookingListPath", "files/archive.txt"); // second parameter is a default value in case the property is missing
+      */
+   }        
 }

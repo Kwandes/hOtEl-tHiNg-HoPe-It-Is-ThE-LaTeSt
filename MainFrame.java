@@ -18,6 +18,7 @@ public class MainFrame // MF or motherFucker for short
    private boolean printLogsToConsole;
    private Properties config;
    private boolean isInitiatedProperly;
+   private String appTitle;
 
    public MainFrame(boolean printLogs)
    {  
@@ -47,6 +48,9 @@ public class MainFrame // MF or motherFucker for short
          config = new Properties();
          config.load(new FileInputStream("config.properties"));
          createLog("Config loaded", Log.Type.INFO);
+         this.appTitle = config.getProperty("appTitle", "YEET");
+         
+         file.setFilePaths(config);
          
          ////////// Get config and init arrays //////////
          // get config with filepaths etc
@@ -251,7 +255,7 @@ public class MainFrame // MF or motherFucker for short
    ////////// User Interface //////////
    public void openCLI()
    {  
-      LoginUI loginUI = new LoginUI("Hotel PlAzA", this);
+      LoginUI loginUI = new LoginUI(this.appTitle, this);
       loginUI.display();
       
       Staff staffMember = null;
@@ -267,7 +271,7 @@ public class MainFrame // MF or motherFucker for short
             createLog("Creating StaffUI", Log.Type.INFO);
             staffMember = loginUI.getStaff();
             
-            staffUI = new StaffUI(staffMember, "YEET", this);
+            staffUI = new StaffUI(staffMember, this.appTitle, this);
             staffUI.setMFRef(this);
             createLog("StaffUi created", Log.Type.INFO);
             staffUI.display();
@@ -277,7 +281,7 @@ public class MainFrame // MF or motherFucker for short
             createLog("Creating GuestUI", Log.Type.INFO);
             guest = loginUI.getGuest();
             
-            guestUI = new GuestUI(guest, "YEET", this);
+            guestUI = new GuestUI(guest, this.appTitle, this);
             createLog("GuestUi created", Log.Type.INFO);
             guestUI.display();
          }
