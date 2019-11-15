@@ -92,8 +92,7 @@ public class FileManagement
             
       return array;
    }
-      // Guests - WAITING TO BE IMPLEMENTED
-   /*
+      // Guests 
    public ArrayList<Guest> loadGuests () 
                            throws FileNotFoundException 
    {
@@ -101,34 +100,64 @@ public class FileManagement
       Guest guest = new Guest();
       ArrayList<Guest> array = new ArrayList<Guest>();
       Scanner in = new Scanner ( file );
+      String[] address = new String[3];
       
       while ( in.hasNext () ) 
       {
-         guest.setID (in.next());
+         guest.setFirstName (in.next());
+         guest.setLastName (in.next());
+         guest.setCpr (in.next());
+         guest.setType (in.next());
+         address[0] = in.next();
+         address[1] = in.next();
+         address[2] = in.next();
+         guest.setAddress ( address );
+         guest.setPhoneNr ( in.next());
+         guest.setPassword ( in.next());
+         guest.setID ( in.next());
+         guest.setAccessLevel ( in.nextInt());
+         guest.setGuestDays ( in.nextInt());
+         guest.setMoneySpent ( in.nextDouble());
          array.add ( guest );
       }
             
       return array;
    }
    
-      // Staff - WAITING TO BE IMPLEMENTED
+      // Staff
    public ArrayList<Staff> loadStaff () 
                            throws FileNotFoundException 
    {
       File file = new File ( filePath + "/staff.txt" );
       Staff staff = new Staff();
       ArrayList<Staff> array = new ArrayList<Staff>();
-      Scanner in = new Scanner ( file );
+      Scanner in = new Scanner ( file );      
+      String[] address = new String[3];
       
       while ( in.hasNext () ) 
       {
+         staff.setFirstName (in.next());
+         staff.setLastName (in.next());
+         staff.setCpr (in.next());
+         staff.setType (in.next());
+         address[0] = in.next();
+         address[1] = in.next();
+         address[2] = in.next();
+         staff.setAddress ( address );
+         staff.setPhoneNr ( in.next());
+         staff.setPassword ( in.next());
+         staff.setID ( in.next());
+         staff.setAccessLevel ( in.nextInt());
+         staff.setHours ( in.nextInt());
+         staff.setSalary ( in.nextDouble());
+         staff.setVacation ( in.nextInt());
          staff.setID (in.next());
          array.add ( staff );
       }
             
       return array;
    }
-   */
+   
       // Bookings - Archived & Active
    public ArrayList<Booking> loadBookings ( boolean isArchived ) 
                            throws FileNotFoundException 
