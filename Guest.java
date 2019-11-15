@@ -47,7 +47,7 @@ public class Guest extends User
    public String fileFormatString ()
    {
       return firstName + " " + lastName + " " + cpr + " " + type + " " + address[0] + " " +
-             address[1] + " " + address[2] + " " + phoneNr + " " + password + " " + ID + " " + accessLevel
+             address[1] + " " + address[2] + " " + phoneNumber + " " + password + " " + ID + " " + accessLevel
              + " " + guestDays + " " + moneySpent;
    }
    

@@ -12,7 +12,7 @@ public class GuestUI extends CLI
    private Scanner in2 = new Scanner(System.in); //bug issue with the scanners, had to make an extra.
    private int IDCounter = 0;
    private Guest user;
-   private String guestID = user.getGuestID();
+   private String guestID;
    
    private MainFrame mf;
    
@@ -25,6 +25,8 @@ public class GuestUI extends CLI
       this.seperator = print(size); 
       this.running = true;
       this.mf = mfRef;
+      this.guestID = user.getID();
+      this.user = user;
    }
    
    public int guestMenu(String guestID) 
@@ -59,7 +61,7 @@ public class GuestUI extends CLI
                bookRoom();
                break;
             case 3: 
-               seeBookings(user.getID);
+               seeBookings(user.getID());
                break;
             case 4:
                extendBooking();
@@ -86,7 +88,7 @@ public class GuestUI extends CLI
       printText("- BOOKINGS -", size);
       print();
       
-      ArrayList<Booking> bookings = mfRef.getBookingList();
+      ArrayList<Booking> bookings = mf.getBookingList();
       
       
    }
@@ -104,7 +106,7 @@ public class GuestUI extends CLI
       String lastName = user.getLastName();
       String cpr = user.getCpr();
       String[] address = user.getAddress();
-      String phoneNr = user.getPhoneNr();
+      String phoneNr = user.getPhoneNumber();
       String password = user.getPassword();
       String pass1;
       String pass2;
@@ -179,7 +181,7 @@ public class GuestUI extends CLI
             print();
             password = pass1;
       }
-      Guest newUser = new Guest ( firstName, lastName, cpr, "GU", address, phoneNr, password, IDCounter, 1.0);
+      Guest newUser = new Guest ( firstName, lastName, cpr, address, phoneNr, password, IDCounter);
       return newUser;
    }
    
@@ -248,7 +250,7 @@ public class GuestUI extends CLI
       print();
       password = pass1;
       
-      Guest Teo = new Guest (firstName, lastName, cpr, "GU", address, phoneNr, password, IDCounter, 1.0);   // Double check the contructors, right now IDCounter is passed for a guestDays parameter in Guest
+      Guest Teo = new Guest (firstName, lastName, cpr, address, phoneNr, password, IDCounter);   // Double check the contructors, right now IDCounter is passed for a guestDays parameter in Guest
       System.out.println("\n" + Teo.toString());
    }
    

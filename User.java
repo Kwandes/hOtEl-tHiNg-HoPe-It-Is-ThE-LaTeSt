@@ -2,16 +2,16 @@ public class User
 {   
       //Attributes 
    
-   private String firstName;
-   private String lastName;
-   private String cpr;            // maybe change for "String" depending on the '-'
-   public String type;            // GU = guest, DI = Director etc.
-   private String[] address = new String[3]; //0 = Street name, 1 = city, 2 = postcode
-   private String phoneNr;          // max 8 digits.
-   private String password;
+   protected String firstName;
+   protected String lastName;
+   protected String cpr;            // maybe change for "String" depending on the '-'
+   protected String type;            // GU = guest, DI = Director etc.
+   protected String[] address = new String[3]; //0 = Street name, 1 = city, 2 = postcode
+   protected String phoneNumber;          // max 8 digits.
+   protected String password;
    protected String ID;           // Type + 2 last digits from PhoneNr + initals ( first letter of each name)
-   private int accessLevel;       // 0 - 6
-   private final String[] TYPE = { "Guest", "Cleaner", "Receptionist", "Accountant", "Director" };
+   protected int accessLevel;       // 0 - 6
+   protected final String[] TYPE = { "Guest", "Cleaner", "Receptionist", "Accountant", "Director" };
    
       //Constructor 
    
@@ -25,7 +25,7 @@ public class User
       this.cpr = cpr;
       this.type = type;
       this.address = address;
-      this.phoneNr = phoneNr;
+      this.phoneNumber = phoneNr;
       this.password = password;
       this.accessLevel = typeNr(type);
       this.ID = type + IDCounter;
@@ -74,7 +74,7 @@ public class User
    
    public String fileFormatString () 
    {
-      return ID + " " + firstName + " " + lastName + " " + cpr + " " + type + " " + accessLevel + " " + add(address) + " " + phoneNr;
+      return ID + " " + firstName + " " + lastName + " " + cpr + " " + type + " " + accessLevel + " " + add(address) + " " + phoneNumber;
    }
    
       //Setters
@@ -116,7 +116,7 @@ public class User
    
    public void setPhoneNr (String phoneNr)
    {
-      this.phoneNr = phoneNr;
+      this.phoneNumber = phoneNr;
    }
    
    public void setPassword (String password) 
@@ -169,10 +169,5 @@ public class User
    public String getPassword () 
    {
       return password;
-   }
-   
-   public String getID () 
-   {
-      return ID;
    }
 }

@@ -68,7 +68,7 @@ public class Staff extends User implements UserManagement
    public String fileFormatString ()
    {
       return firstName + " " + lastName + " " + cpr + " " + type + " " + address[0] + " " +
-             address[1] + " " + address[2] + " " + phoneNr + " " + password + " " + ID + " " + 
+             address[1] + " " + address[2] + " " + phoneNumber + " " + password + " " + ID + " " + 
              accessLevel + " " + hours + " " + salary + " " + vacation; 
    } 
    
@@ -132,14 +132,6 @@ public class Staff extends User implements UserManagement
    public int getAccessLevel()
    {
       return accessLevel;
-   }
-      
-   public String staffRepportToString () 
-   {
-      return "\tHours a week          : " + hours + 
-             "\n\tSalary pr hour      : " + salary +
-             "\n\tVacation days pr/y  : " + vacation + 
-             "\n\tMonthly salary      : " + getSalaryMonth();
    }
    
    public String getID () 
