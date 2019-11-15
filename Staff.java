@@ -1,4 +1,4 @@
-public class Staff extends User implements UserManagement
+public class Staff extends User
 {
    private int hours;           //pr week
    private double salary;       //pr hour
@@ -6,13 +6,13 @@ public class Staff extends User implements UserManagement
    
       //Constructer 
    
-   public Staff () {} 
+   public Staff () {}
       
    public Staff (String firstName, String lastName, String cpr, String type, 
-                 String[] address, int phoneNr, String password, int hours, 
+                 String[] address, long phoneNr, String password, int IDCounter, int hours, 
                  double salary, int vacation) 
    {
-      super(firstName, lastName, cpr, type, address, phoneNr, password);
+      super(firstName, lastName, cpr, type, address, phoneNr, password, IDCounter);
       this.hours = hours;
       this.salary = salary;
       this.vacation = vacation; 
@@ -20,31 +20,7 @@ public class Staff extends User implements UserManagement
    
       //Methods
       
-      public String staffRepportToString () 
-   {
-      return "\tHours a week          : " + hours + 
-             "\n\tSalary pr hour      : " + salary +
-             "\n\tVacation days pr/y  : " + vacation + 
-             "\n\tMonthly salary      : " + getSalaryMonth();
-   }
-   
-   @Override
-   public void getUserInformation(String ID)
-   {
-   
-   }
-   @Override
-   public void printStaffReport(User user)
-   {
-      System.out.println(ID + " " + accessLevel + " " + hours + " " + salary + " " + vacation);
-   }
-   
-   public String fileFormatString ()
-   {
-      return firstName + " " + lastName + " " + cpr + " " + type + " " + address[0] + " " +
-             address[1] + " " + address[2] + " " + phoneNr + " " + password + " " + ID + " " + 
-             accessLevel + " " + hours + " " + salary + " " + vacation; 
-   } 
+      
    
       //Setters
    
@@ -89,9 +65,18 @@ public class Staff extends User implements UserManagement
    {
       return vacation;
    }
-   
-   public String getID () 
+      
+   public String staffReportToString () 
    {
-      return "S" + accessLevel + IDCounter;
+      return "\tStaff ID            : " + ID + 
+             "\n\tHours a week        : " + hours + 
+             "\n\tSalary pr hour      : " + salary +
+             "\n\tVacation days pr/y  : " + vacation + 
+             "\n\tMonthly salary      : " + getSalaryMonth();
+   }
+   
+   public String staffReportFileToString () 
+   {
+      return ID + " " + hours + " " + salary + " " + vacation + " " + getSalaryMonth();
    }
 }
