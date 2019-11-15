@@ -21,7 +21,7 @@ public class MainFrame // MF or motherFucker for short
    {  
       this.printLogsToConsole = printLogs;
    
-      file = new FileManagement("Logs");
+      file = new FileManagement(this, "Logs");
       createLog("New MainFrame has been created", Log.Type.INFO);
    }    
    
@@ -29,7 +29,7 @@ public class MainFrame // MF or motherFucker for short
    {  
       this.printLogsToConsole = false;
    
-      file = new FileManagement("Logs");
+      file = new FileManagement(this, "Logs");
       createLog("New MainFrame has been created", Log.Type.INFO);
    } 
    
