@@ -8,12 +8,47 @@ public class Guest extends User
    public Guest () {}
      
    public Guest (String firstName, String lastName, String cpr, 
-                 String[] adress, long phoneNr, String password, int IDCounter)
+                 String[] adress, String phoneNr, String password, int IDCounter)
    {
-      super(firstName, lastName, cpr, "GU", adress, phoneNr, password, IDCounter);
+      this.firstName = firstName;
+      this.lastName = lastName;
+      this.cpr = cpr;
+      this.type = type;
+      this.address = address;
+      this.phoneNr = phoneNr;
+      this.password = password;
       this.guestDays = 0;
       this.moneySpent = 0.0;
+      this.ID = "G" + accessLevel + IDCounter;   
    }  
+   
+      //Methods
+   
+   public String guestRepportToString ()
+   {
+      return "Total days at hotel         : " + guestDays +
+             "\nTotal amount of money spent : " + moneySpent;
+   }
+   
+   //@Override
+   public void getUserInformation(String ID)
+   {
+   
+   }
+   
+   //@Override
+   public void printGuestReport(User user)
+   {
+      System.out.println( ID + " " + accessLevel + " " + guestDays + " " + moneySpent );
+   }
+   
+   //@Override
+   public String fileFormatString ()
+   {
+      return firstName + " " + lastName + " " + cpr + " " + type + " " + address[0] + " " +
+             address[1] + " " + address[2] + " " + phoneNr + " " + password + " " + ID + " " + accessLevel
+             + " " + guestDays + " " + moneySpent;
+   }
    
       //AddToMethods
    
@@ -25,6 +60,23 @@ public class Guest extends User
    public void setMoneySpent (double moneySpent) 
    {
       this.moneySpent += moneySpent;
+   }
+   
+      //Setters
+   
+   public void setDays (int guestDays) 
+   {
+      this.guestDays = 0;
+   }
+   
+   public void setMoney (double moneySpent) 
+   {
+      this.moneySpent = 0.0;
+   }
+   
+   public void setID (String ID)
+   {
+      this.ID = ID;
    }
    
       //Getters
@@ -39,16 +91,8 @@ public class Guest extends User
       return moneySpent;
    }
    
-      //Methods
-   
-   public String guestReportToString ()
+   public String getID () 
    {
-      return "\tDays at hotel   : " + guestDays +
-             "\n\tMoney spent     : " + moneySpent;
-   }
-   
-   public String guestReportFileToString ()
-   {
-      return guestDays + " " + moneySpent;
+      return ID;
    }
 }
