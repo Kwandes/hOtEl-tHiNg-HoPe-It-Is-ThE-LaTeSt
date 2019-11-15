@@ -69,6 +69,7 @@ public class MainFrame // MF or motherFucker for short
          ////////// Run CLI/UI/whatever we called it //////////
          // create UI object and run UI
          createLog("MainFrame init has completed successfully", Log.Type.INFO);
+         playMusic();
          this.isInitiatedProperly = true;
       }
       catch (Exception e)
@@ -325,6 +326,23 @@ public class MainFrame // MF or motherFucker for short
             createLog("Booking " + bookingID + "has been archived", Log.Type.INFO);
             break;
          }
+      }
+   }
+   
+   ////////// Extra functionality //////////
+   
+   public void playMusic()
+   {
+      try
+      {
+         Musik yes = new Musik(config.getProperty("musicFile"));
+         yes.play();
+         createLog("Playing " + config.getProperty("musicFile"), Log.Type.INFO);
+      }
+      catch (Exception e)
+      {
+         createLog("Unable to play Music", Log.Type.WARNING);
+         createLog(e, Log.Type.ERROR);
       }
    }
    
