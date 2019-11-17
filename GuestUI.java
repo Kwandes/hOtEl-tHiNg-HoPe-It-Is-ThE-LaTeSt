@@ -19,7 +19,7 @@ public class GuestUI extends CLI
    public GuestUI(Guest user, String title, MainFrame mfRef) throws Exception
    {
       this.title = title;
-      this.screenNumber = 2;
+      this.screenNumber = 1;
       this.loggedUser = user.getLastName();
       this.userAccessLevel = 0; // Cannot be more than 0 for security reasons
       this.seperator = print(size); 
